@@ -2,11 +2,12 @@
 #include "menu.hpp"
 #include <iostream>
 #include "grid.hpp"
+using namespace std;
 
 void createButton(int x, int y, int width, int height, const char *text)
 {
     DrawRectangle(x, y, width, height, WHITE);
-    DrawText(text, x + 10, y + 10, 20, BLACK);
+    DrawText(text, x + 10, y + 15, 20, BLACK);
 }
 
 void buttonIsClicked()
@@ -15,7 +16,7 @@ void buttonIsClicked()
     {
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
-            std::cout << "Button clicked" << std::endl;
+            cout << "Button clicked" << endl;
             randomSpawn(800, 600, 20);
         }
     }

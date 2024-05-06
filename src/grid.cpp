@@ -1,5 +1,7 @@
 #include <raylib.h>
 
+bool gridCells[40][30];
+
 void createGrid(int screenWidth, int screenHeight, int cellSize)
 {
     int rows = screenHeight / cellSize;
@@ -9,14 +11,21 @@ void createGrid(int screenWidth, int screenHeight, int cellSize)
     {
         for (int j = 0; j < columns; j++)
         {
-            DrawRectangle(j * cellSize +1, i * cellSize +1, cellSize-1, cellSize-1, WHITE);
+            if (gridCells[i][j])
+            {
+                DrawRectangle(j * cellSize + 1, i * cellSize + 1, cellSize - 1, cellSize - 1, BLACK);
+            }
+            else
+            {
+                DrawRectangle(j * cellSize + 1, i * cellSize + 1, cellSize - 1, cellSize - 1, WHITE);
+            }
         }
     }
-};
+}
+
 
 void randomSpawn(int screenWidth, int screenHeight, int cellSize)
 {
-
     int rows = screenHeight / cellSize;
     int columns = screenWidth / cellSize;
 
@@ -24,10 +33,7 @@ void randomSpawn(int screenWidth, int screenHeight, int cellSize)
     {
         for (int j = 0; j < columns; j++)
         {
-            if (GetRandomValue(0, 1) == 1)
-            {
-                DrawRectangle(j * cellSize +1, i * cellSize +1, cellSize-1, cellSize-1, BLACK);
-            }
+            gridCells[i][j] = GetRandomValue(0, 1) == 1;
         }
     }
-};
+}
