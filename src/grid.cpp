@@ -1,6 +1,7 @@
 #include <raylib.h>
+#include "globals.hpp"
 
-bool gridCells[40][30];
+bool gridCells[40][30] = {{false}};
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
 {
