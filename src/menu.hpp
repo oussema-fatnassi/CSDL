@@ -6,5 +6,6 @@ void spawnRandomButton();
 void startSimulationButton();
 void stopSimulationButton();
 void clearGridButton();
+void customButton();
 
 #endif  // MENU_H

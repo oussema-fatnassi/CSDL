@@ -5,6 +5,8 @@
 #include "globals.hpp"
 using namespace std;
 
+bool isCustomMode = false;
+
 
 void createButton(int x, int y, int width, int height, const char *text)
 {
@@ -62,6 +64,18 @@ void clearGridButton()
                     gridCells[i][j] = false;
                 }
             }
+        }
+    }
+}
+
+void customButton()
+{
+    if (CheckCollisionPointRec(GetMousePosition(), {350, 620, 100, 50}))
+    {
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            isCustomMode = true;
+            cout << "Custom button clicked" << endl;
         }
     }
 }

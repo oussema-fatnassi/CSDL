@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "globals.hpp"
-
 bool gridCells[40][30] = {{false}};
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
@@ -96,3 +95,18 @@ void applyConwayRules()
     }
 }
 
+void customGridSpawn() {
+    int cellSize = 20;
+    int rows = 800 / cellSize;
+    int columns = 600 / cellSize;
+
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        Vector2 mousePosition = GetMousePosition();
+        int row = mousePosition.y / cellSize;
+        int column = mousePosition.x / cellSize;
+
+        if (row >= 0 && row < rows && column >= 0 && column < columns) {
+            gridCells[row][column] = true;
+        }
+    }
+}
