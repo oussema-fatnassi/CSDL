@@ -11,11 +11,12 @@ int main() {
 
     InitWindow(screenWidth, screenHeight, "Game of Life");
 
-    SetTargetFPS(60);
+    SetTargetFPS(5);
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(WHITE);
+        ClearBackground(GRAY);
         createGrid(gridWidth, gridHeight, cellSize);
+        randomSpawn(gridWidth, gridHeight, cellSize);
         createButton(50, 620, 100, 50, "Start");
         EndDrawing();
     }
