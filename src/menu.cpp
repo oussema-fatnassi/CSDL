@@ -2,7 +2,9 @@
 #include "menu.hpp"
 #include <iostream>
 #include "grid.hpp"
+#include "globals.hpp"
 using namespace std;
+
 
 void createButton(int x, int y, int width, int height, const char *text)
 {
@@ -10,7 +12,7 @@ void createButton(int x, int y, int width, int height, const char *text)
     DrawText(text, x + 10, y + 15, 20, BLACK);
 }
 
-void buttonIsClicked()
+void spawnRandomButton()
 {
     if (CheckCollisionPointRec(GetMousePosition(), {50, 620, 100, 50}))
     {
@@ -22,14 +24,14 @@ void buttonIsClicked()
     }
 }
 
-void startSimulation()
+void startSimulationButton()
 {
     if (CheckCollisionPointRec(GetMousePosition(), {350, 620, 180, 50}))
     {
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
             cout << "Simulation started" << endl;
-            applyConwayRules();
+            isSimulationRunning = true;
         }
     }
 }
