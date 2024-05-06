@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include "grid.hpp"
 #include <raylib.h>
 
 int main() {
