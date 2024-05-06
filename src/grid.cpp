@@ -16,6 +16,7 @@ void createGrid(int screenWidth, int screenHeight, int cellSize)
 
 void randomSpawn(int screenWidth, int screenHeight, int cellSize)
 {
+
     int rows = screenHeight / cellSize;
     int columns = screenWidth / cellSize;
 
