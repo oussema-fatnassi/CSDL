@@ -16,11 +16,10 @@ int main() {
         BeginDrawing();
         ClearBackground(GRAY);
         createGrid(gridWidth, gridHeight, cellSize);
-        randomSpawn(gridWidth, gridHeight, cellSize);
-        createButton(50, 620, 100, 50, "Start");
+        createButton(50, 620, 100, 50, "Random");
+        buttonIsClicked();
         EndDrawing();
     }
-
     CloseWindow();
     return 0;
 }
