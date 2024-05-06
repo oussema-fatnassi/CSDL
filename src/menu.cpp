@@ -21,3 +21,15 @@ void buttonIsClicked()
         }
     }
 }
+
+void startSimulation()
+{
+    if (CheckCollisionPointRec(GetMousePosition(), {350, 620, 180, 50}))
+    {
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            cout << "Simulation started" << endl;
+            applyConwayRules();
+        }
+    }
+}

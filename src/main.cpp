@@ -16,11 +16,11 @@ int main() {
         BeginDrawing();
         ClearBackground(GRAY);
         createGrid(gridWidth, gridHeight, cellSize);
-        // randomSpawn(gridWidth, gridHeight, cellSize);
         createButton(50, 620, 100, 50, "Random");
         createButton(200, 620, 100, 50, "Default");
         createButton(350, 620, 180, 50, "Start Simulation");
         buttonIsClicked();
+        startSimulation();
         EndDrawing();
     }
 
