@@ -20,6 +20,7 @@ int main() {
         createGrid(gridWidth, gridHeight, cellSize);
         createButton(50, 620, 100, 50, "Random");
         createButton(200, 620, 100, 50, "Default");
+        createButton(350, 620, 100, 50, "Custom");
         createButton(50, 680, 180, 50, "Start Simulation");
         createButton(250, 680, 100, 50, "Stop");
         createButton(370, 680, 130, 50, "Clear Grid");
@@ -27,6 +28,8 @@ int main() {
         startSimulationButton();
         stopSimulationButton();
         clearGridButton();
+        customButton();
+        customGridSpawn();
 
         if (isSimulationRunning) {
             applyConwayRules();
