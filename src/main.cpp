@@ -10,9 +10,9 @@ Menu currentMenu = MAIN_MENU;
 int main() {
     const int screenWidth = 800;
     const int screenHeight = 1000;
-    const int gridWidth = 800;
-    const int gridHeight = 800;
-    const int cellSize = 20;
+    // const int gridWidth = 800;
+    // const int gridHeight = 800;
+    // const int cellSize = 20;
 
     InitWindow(screenWidth, screenHeight, "Game of Life");
 
@@ -21,26 +21,43 @@ int main() {
         BeginDrawing();
         ClearBackground(GRAY);
 
-        // drawMenu();
-        // menuInput();
+        switch (currentMenu) {
+        case MAIN_MENU:
+            drawMainMenu();
+            break;
+        case INTRODUCTION:
+            drawIntroduction();
+            break;
+        case CREDITS:
+            drawCredits();
+            break;
+        case MODE_MENU:
+            drawModeMenu();
+            break;
+        case CUSTOM_MODE:
+            drawCustomMode();
+            break;
+    }
+        menuInput();
+        modeInput();
 
-        createGrid(gridWidth, gridHeight, cellSize);
-        createButton(50, 820, 100, 50, "Random");
-        createButton(200, 820, 100, 50, "Default");
-        createButton(350, 820, 100, 50, "Custom");
-        createButton(50, 880, 180, 50, "Start Simulation");
-        createButton(250, 880, 100, 50, "Stop");
-        createButton(370, 880, 130, 50, "Clear Grid");
-        spawnRandomButton();
-        startSimulationButton();
-        stopSimulationButton();
-        clearGridButton();
-        customButton();
-        customGridSpawn();
+        // createGrid(gridWidth, gridHeight, cellSize);
+        // createButton(50, 820, 100, 50, "Random");
+        // createButton(200, 820, 100, 50, "Default");
+        // createButton(350, 820, 100, 50, "Custom");
+        // createButton(50, 880, 180, 50, "Start Simulation");
+        // createButton(250, 880, 100, 50, "Stop");
+        // createButton(370, 880, 130, 50, "Clear Grid");
+        // spawnRandomButton();
+        // startSimulationButton();
+        // stopSimulationButton();
+        // clearGridButton();
+        // customButton();
+        // customGridSpawn();
 
-        if (isSimulationRunning) {
-            applyConwayRules();
-        }
+        // if (isSimulationRunning) {
+        //     applyConwayRules();
+        // }
         EndDrawing();
     }
 

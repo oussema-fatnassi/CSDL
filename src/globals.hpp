@@ -5,7 +5,11 @@ enum Menu
 {
     MAIN_MENU,
     INTRODUCTION,
-    CREDITS
+    CREDITS,
+    CUSTOM_MODE,
+    RANDOM_MODE,
+    DEFAULT_MODE,
+    MODE_MENU
 };
 
 extern bool isSimulationRunning;

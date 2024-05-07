@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include "globals.hpp"
+#include "menu.hpp"
 bool gridCells[40][40] = {{false}};
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
@@ -100,13 +101,14 @@ void customGridSpawn() {
     int rows = 800 / cellSize;
     int columns = 800 / cellSize;
 
-    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-        Vector2 mousePosition = GetMousePosition();
-        int row = mousePosition.y / cellSize;
-        int column = mousePosition.x / cellSize;
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+            Vector2 mousePosition = GetMousePosition();
+            int row = mousePosition.y / cellSize;
+            int column = mousePosition.x / cellSize;
 
-        if (row >= 0 && row < rows && column >= 0 && column < columns) {
-            gridCells[row][column] = true;
+            if (row >= 0 && row < rows && column >= 0 && column < columns) {
+                gridCells[row][column] = true;
+            }
         }
-    }
+    
 }
