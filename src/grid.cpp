@@ -97,10 +97,10 @@ void applyConwayRules()
 
 void customGridSpawn() {
     int cellSize = 20;
-    int rows = 800 / cellSize;
-    int columns = 600 / cellSize;
+    int rows = 600 / cellSize;
+    int columns = 800 / cellSize;
 
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePosition = GetMousePosition();
         int row = mousePosition.y / cellSize;
         int column = mousePosition.x / cellSize;
