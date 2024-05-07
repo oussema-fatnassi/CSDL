@@ -1,7 +1,27 @@
 #include <raylib.h>
+#include <fstream>
 #include "globals.hpp"
 #include "menu.hpp"
 bool gridCells[40][40] = {{false}};
+
+void saveGridToFile()
+{
+    std::ofstream file("matrix.txt");
+
+    if (file.is_open())
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            for (int j = 0; j < 40; j++)
+            {
+                file << gridCells[i][j] << " ";
+            }
+            file << "\n";
+        }
+
+        file.close();
+    }
+}
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
 {
@@ -86,7 +106,7 @@ void applyConwayRules()
             }
         }
     }
-
+    saveGridToFile();
     for (int i = 0; i < 40; i++)
     {
         for (int j = 0; j < 40; j++)
@@ -101,7 +121,8 @@ void customGridSpawn() {
     int rows = 800 / cellSize;
     int columns = 800 / cellSize;
 
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) 
+        {
             Vector2 mousePosition = GetMousePosition();
             int row = mousePosition.y / cellSize;
             int column = mousePosition.x / cellSize;
@@ -109,6 +130,23 @@ void customGridSpawn() {
             if (row >= 0 && row < rows && column >= 0 && column < columns) {
                 gridCells[row][column] = true;
             }
+        } 
+}
+
+void loadGridFromFile()
+{
+    std::ifstream file("matrix.txt");
+
+    if (file.is_open())
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            for (int j = 0; j < 40; j++)
+            {
+                file >> gridCells[i][j];
+            }
         }
-    
+
+        file.close();
+    }
 }

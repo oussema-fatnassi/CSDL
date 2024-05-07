@@ -164,6 +164,7 @@ void modeInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 drawDefaultMode();
+                loadGridFromFile();
                 currentMenu = DEFAULT_MODE;
             }
         }
