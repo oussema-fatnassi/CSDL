@@ -9,5 +9,6 @@ void modeInput();
 void drawModeMenu();
 void drawCustomMode();
 void drawRandomMode();
+void drawDefaultMode();
 
 #endif  
