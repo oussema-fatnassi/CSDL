@@ -1,5 +1,9 @@
 #include "menu.hpp"
 #include "grid.hpp"
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <iostream>
 #include <raylib.h>
 
 int main() {
