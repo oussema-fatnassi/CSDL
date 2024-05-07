@@ -50,6 +50,16 @@ void drawCustomMode()
 
 }
 
+void drawRandomMode()
+{
+    ClearBackground(GRAY);
+    createGrid(800, 800, 20);
+    createButton(50, 880, 100, 50, "Reroll");
+    createButton(250, 880, 180, 50, "Start Simulation");
+    createButton(370, 880, 130, 50, "Stop");
+    createButton(520, 880, 100, 50, "Clear Grid");
+    createButton(650, 880, 100, 50, "Quit");
+}
 void drawModeMenu()
 {
     createButton(350, 200, 100, 50, "Random");
@@ -164,6 +174,13 @@ void modeInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = false;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))       //Clear grid button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                clearGridButton();
             }
         }
         else if (CheckCollisionPointRec(GetMousePosition(), {520, 880, 100, 50}))       //Quit button

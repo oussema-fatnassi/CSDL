@@ -52,18 +52,11 @@ void stopSimulationButton()
 
 void clearGridButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))
+    for (int i = 0; i < 40; i++)
     {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        for (int j = 0; j < 40; j++)
         {
-            cout << "Grid cleared" << endl;
-            for (int i = 0; i < 40; i++)
-            {
-                for (int j = 0; j < 40; j++)
-                {
-                    gridCells[i][j] = false;
-                }
-            }
+            gridCells[i][j] = false;
         }
     }
 }
