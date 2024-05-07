@@ -20,9 +20,9 @@ void drawIntroduction()
 {
     ClearBackground(GRAY);
     DrawText("Introduction", 350, 100, 50, BLACK);
-    DrawText("The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.", 50, 200, 20, WHITE);
-    DrawText("The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.", 50, 250, 20, WHITE);
-    DrawText("One interacts with the Game of Life by creating an initial configuration and observing how it evolves.", 50, 300, 20, WHITE);
+    DrawText("The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.", 50, 200, 15, WHITE);
+    DrawText("The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.", 50, 250, 15, WHITE);
+    DrawText("One interacts with the Game of Life by creating an initial configuration and observing how it evolves.", 50, 300, 15, WHITE);
     createButton(300, 600, 200, 50, "Back");
 }
 
@@ -31,8 +31,9 @@ void drawCredits()
     ClearBackground(GRAY);
     DrawText("Credits", 350, 100, 50, BLACK);
     DrawText("This game was created by the following people:", 50, 200, 20, WHITE);
-    DrawText("John Doe", 50, 250, 20, BLACK);
-    DrawText("Jane Doe", 50, 300, 20, BLACK);
+    DrawText("Baptiste APPRIOU", 50, 250, 20, BLACK);
+    DrawText("Ali Abakar ISSA", 50, 300, 20, BLACK);
+    DrawText("Oussema FATNASSI", 50, 350, 20, BLACK);
     createButton(300, 600, 200, 50, "Back");
 }
 

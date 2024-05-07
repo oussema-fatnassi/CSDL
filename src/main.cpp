@@ -21,26 +21,26 @@ int main() {
         BeginDrawing();
         ClearBackground(GRAY);
 
-        drawMenu();
-        menuInput();
+        // drawMenu();
+        // menuInput();
 
-        // createGrid(gridWidth, gridHeight, cellSize);
-        // createButton(50, 820, 100, 50, "Random");
-        // createButton(200, 820, 100, 50, "Default");
-        // createButton(350, 820, 100, 50, "Custom");
-        // createButton(50, 880, 180, 50, "Start Simulation");
-        // createButton(250, 880, 100, 50, "Stop");
-        // createButton(370, 880, 130, 50, "Clear Grid");
-        // spawnRandomButton();
-        // startSimulationButton();
-        // stopSimulationButton();
-        // clearGridButton();
-        // customButton();
-        // customGridSpawn();
+        createGrid(gridWidth, gridHeight, cellSize);
+        createButton(50, 820, 100, 50, "Random");
+        createButton(200, 820, 100, 50, "Default");
+        createButton(350, 820, 100, 50, "Custom");
+        createButton(50, 880, 180, 50, "Start Simulation");
+        createButton(250, 880, 100, 50, "Stop");
+        createButton(370, 880, 130, 50, "Clear Grid");
+        spawnRandomButton();
+        startSimulationButton();
+        stopSimulationButton();
+        clearGridButton();
+        customButton();
+        customGridSpawn();
 
-        // if (isSimulationRunning) {
-        //     applyConwayRules();
-        // }
+        if (isSimulationRunning) {
+            applyConwayRules();
+        }
         EndDrawing();
     }
 
