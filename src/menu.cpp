@@ -79,3 +79,15 @@ void customButton()
         }
     }
 }
+
+void defaultButton()
+{
+    if (CheckCollisionPointRec(GetMousePosition(), {200, 820, 100, 50}))
+    {
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        {
+            cout << "Default button clicked" << endl;
+            loadGridFromFile();
+        }
+    }
+}

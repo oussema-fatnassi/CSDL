@@ -1,5 +1,9 @@
 #include "menu.hpp"
 #include "grid.hpp"
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <iostream>
 #include <raylib.h>
 #include "globals.hpp"
 
@@ -30,6 +34,7 @@ int main() {
         clearGridButton();
         customButton();
         customGridSpawn();
+        defaultButton();
 
         if (isSimulationRunning) {
             applyConwayRules();
