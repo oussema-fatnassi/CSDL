@@ -1,11 +1,12 @@
 #ifndef MENU_H
 #define MENU_H
 
-void createButton(int x, int y, int width, int height, const char *text);
-void spawnRandomButton();
-void startSimulationButton();
-void stopSimulationButton();
-void clearGridButton();
-void customButton();
+void drawMainMenu();
+void drawIntroduction();
+void drawCredits();
+void drawMenu();
+void menuInput();
 
-#endif  // MENU_H
+
+
+#endif  

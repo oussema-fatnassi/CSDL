@@ -1,81 +1,93 @@
+#include <iostream>
 #include <raylib.h>
 #include "menu.hpp"
-#include <iostream>
-#include "grid.hpp"
+#include "buttons.hpp"
 #include "globals.hpp"
+
 using namespace std;
 
-bool isCustomMode = false;
 
-
-void createButton(int x, int y, int width, int height, const char *text)
+void drawMainMenu()
 {
-    DrawRectangle(x, y, width, height, WHITE);
-    DrawText(text, x + 10, y + 15, 20, BLACK);
+    ClearBackground(GRAY);
+    DrawText("Game of Life", 350, 100, 50, BLACK);
+    createButton(300, 300, 200, 50, "Introduction");
+    createButton(300, 400, 200, 50, "Credits");
+    createButton(300, 500, 200, 50, "Exit");
 }
 
-void spawnRandomButton()
+void drawIntroduction()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))
+    ClearBackground(GRAY);
+    DrawText("Introduction", 350, 100, 50, BLACK);
+    DrawText("The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.", 50, 200, 20, WHITE);
+    DrawText("The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.", 50, 250, 20, WHITE);
+    DrawText("One interacts with the Game of Life by creating an initial configuration and observing how it evolves.", 50, 300, 20, WHITE);
+    createButton(300, 600, 200, 50, "Back");
+}
+
+void drawCredits()
+{
+    ClearBackground(GRAY);
+    DrawText("Credits", 350, 100, 50, BLACK);
+    DrawText("This game was created by the following people:", 50, 200, 20, WHITE);
+    DrawText("John Doe", 50, 250, 20, BLACK);
+    DrawText("Jane Doe", 50, 300, 20, BLACK);
+    createButton(300, 600, 200, 50, "Back");
+}
+
+void drawMenu()
+{
+    switch (currentMenu)
     {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-        {
-            cout << "Button clicked" << endl;
-            randomSpawn(800, 600, 20);
-        }
+    case MAIN_MENU:
+        drawMainMenu();
+        break;
+    case INTRODUCTION:
+        drawIntroduction();
+        break;
+    case CREDITS:
+        drawCredits();
+        break;
+    default:
+        break;
     }
 }
 
-void startSimulationButton()
+void menuInput()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
+    if (currentMenu == MAIN_MENU)
     {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))
         {
-            cout << "Simulation started" << endl;
-            isSimulationRunning = true;
-        }
-    }
-}
-
-void stopSimulationButton()
-{
-    if (CheckCollisionPointRec(GetMousePosition(), {250, 880, 100, 50}))
-    {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-        {
-            cout << "Simulation stopped" << endl;
-            isSimulationRunning = false;
-        }
-    }
-}
-
-void clearGridButton()
-{
-    if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))
-    {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-        {
-            cout << "Grid cleared" << endl;
-            for (int i = 0; i < 30; i++)
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
             {
-                for (int j = 0; j < 40; j++)
-                {
-                    gridCells[i][j] = false;
-                }
+                currentMenu = INTRODUCTION;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))
+        {
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            {
+                currentMenu = CREDITS;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 500, 200, 50}))
+        {
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            {
+                CloseWindow();
             }
         }
     }
-}
-
-void customButton()
-{
-    if (CheckCollisionPointRec(GetMousePosition(), {350, 820, 100, 50}))
+    else
     {
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))
         {
-            isCustomMode = true;
-            cout << "Custom button clicked" << endl;
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            {
+                currentMenu = MAIN_MENU;
+            }
         }
     }
 }
