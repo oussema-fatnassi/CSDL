@@ -47,7 +47,6 @@ void drawCustomMode()
     createButton(250, 880, 100, 50, "Stop");
     createButton(370, 880, 130, 50, "Clear Grid");
     createButton(520, 880, 100, 50, "Quit");
-
 }
 
 void drawRandomMode()
@@ -55,9 +54,9 @@ void drawRandomMode()
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
     createButton(50, 880, 100, 50, "Reroll");
-    createButton(250, 880, 180, 50, "Start Simulation");
-    createButton(370, 880, 130, 50, "Stop");
-    createButton(520, 880, 100, 50, "Clear Grid");
+    createButton(170, 880, 180, 50, "Start Simulation");
+    createButton(370, 880, 100, 50, "Stop");
+    createButton(490, 880, 130, 50, "Clear Grid");
     createButton(650, 880, 100, 50, "Quit");
 }
 void drawModeMenu()
@@ -145,6 +144,14 @@ void modeInput()
                 currentMenu = CUSTOM_MODE;
             }
         }
+        else if (CheckCollisionPointRec(GetMousePosition(), {350, 200, 100, 50}))    //Random mode button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                drawRandomMode();
+                currentMenu = RANDOM_MODE;
+            }
+        }
         else if (CheckCollisionPointRec(GetMousePosition(), {350, 550, 100, 50}))       //Back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -187,6 +194,52 @@ void modeInput()
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                clearGridButton();
+                drawMainMenu();
+                currentMenu = MAIN_MENU;
+            }
+        }
+    }
+    else if (currentMenu == RANDOM_MODE)
+    {
+        if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 100, 50}))    //Reroll button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                randomSpawn(800, 600, 20);
+            }
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), {170, 880, 180, 50}))
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                isSimulationRunning = true;
+            }
+        }
+        if(isSimulationRunning)
+        {
+            applyConwayRules();
+        }
+        
+        if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                isSimulationRunning = false;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {520, 880, 100, 50}))       //Clear grid button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                clearGridButton();
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {650, 880, 100, 50}))       //Quit button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                clearGridButton();
                 drawMainMenu();
                 currentMenu = MAIN_MENU;
             }

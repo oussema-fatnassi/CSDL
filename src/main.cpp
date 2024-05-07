@@ -37,6 +37,9 @@ int main() {
         case CUSTOM_MODE:
             drawCustomMode();
             break;
+        case RANDOM_MODE:
+            drawRandomMode();
+            break;
     }
         menuInput();
         modeInput();
