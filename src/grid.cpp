@@ -1,6 +1,6 @@
 #include <raylib.h>
 #include "globals.hpp"
-bool gridCells[40][30] = {{false}};
+bool gridCells[40][40] = {{false}};
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
 {
@@ -49,7 +49,7 @@ int countLiveNeighbors(int row, int col)
         int newRow = row + rowOffsets[i];
         int newCol = col + colOffsets[i];
 
-        if (newRow >= 0 && newRow < 40 && newCol >= 0 && newCol < 30)
+        if (newRow >= 0 && newRow < 40 && newCol >= 0 && newCol < 40)
         {
             if (gridCells[newRow][newCol] == 1)
             {
@@ -63,11 +63,11 @@ int countLiveNeighbors(int row, int col)
 
 void applyConwayRules()
 {
-    bool nextGrid[40][30];
+    bool nextGrid[40][40];
 
     for (int i = 0; i < 40; i++)
     {
-        for (int j = 0; j < 30; j++)
+        for (int j = 0; j < 40; j++)
         {
             int liveNeighbors = countLiveNeighbors(i, j);
 
@@ -88,7 +88,7 @@ void applyConwayRules()
 
     for (int i = 0; i < 40; i++)
     {
-        for (int j = 0; j < 30; j++)
+        for (int j = 0; j < 40; j++)
         {
             gridCells[i][j] = nextGrid[i][j];
         }
@@ -97,7 +97,7 @@ void applyConwayRules()
 
 void customGridSpawn() {
     int cellSize = 20;
-    int rows = 600 / cellSize;
+    int rows = 800 / cellSize;
     int columns = 800 / cellSize;
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
