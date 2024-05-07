@@ -4,9 +4,9 @@
 void drawMainMenu();
 void drawIntroduction();
 void drawCredits();
-void drawMenu();
 void menuInput();
-
-
+void modeInput();
+void drawModeMenu();
+void drawCustomMode();
 
 #endif  
