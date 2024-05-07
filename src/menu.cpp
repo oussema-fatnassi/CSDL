@@ -16,19 +16,19 @@ void createButton(int x, int y, int width, int height, const char *text)
 
 void spawnRandomButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {50, 620, 100, 50}))
+    if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))
     {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
             cout << "Button clicked" << endl;
-            randomSpawn(800, 600, 20);
+            randomSpawn(800, 800, 20);
         }
     }
 }
 
 void startSimulationButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {50, 680, 180, 50}))
+    if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
     {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
@@ -40,7 +40,7 @@ void startSimulationButton()
 
 void stopSimulationButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {250, 680, 100, 50}))
+    if (CheckCollisionPointRec(GetMousePosition(), {250, 880, 100, 50}))
     {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
@@ -52,14 +52,14 @@ void stopSimulationButton()
 
 void clearGridButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {370, 680, 130, 50}))
+    if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))
     {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
             cout << "Grid cleared" << endl;
             for (int i = 0; i < 40; i++)
             {
-                for (int j = 0; j < 30; j++)
+                for (int j = 0; j < 40; j++)
                 {
                     gridCells[i][j] = false;
                 }
@@ -70,7 +70,7 @@ void clearGridButton()
 
 void customButton()
 {
-    if (CheckCollisionPointRec(GetMousePosition(), {350, 620, 100, 50}))
+    if (CheckCollisionPointRec(GetMousePosition(), {350, 820, 100, 50}))
     {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
