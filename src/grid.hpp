@@ -6,5 +6,7 @@ void randomSpawn(int screenWidth, int screenHeight, int cellSize);
 int countLiveNeighbors(int i, int j);
 void applyConwayRules();
 void customGridSpawn();
+void saveGridToFile();
+void loadGridFromFile();
 
 #endif  

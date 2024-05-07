@@ -3,6 +3,10 @@
 #include "grid.hpp"
 #include "globals.hpp"
 #include "menu.hpp"
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <iostream>
 
 bool isSimulationRunning = false;
 Menu currentMenu = MAIN_MENU;
