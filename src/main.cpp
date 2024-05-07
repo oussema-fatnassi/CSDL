@@ -1,7 +1,9 @@
 #include "menu.hpp"
 #include "grid.hpp"
 #include <raylib.h>
+#include "globals.hpp"
 
+bool isSimulationRunning = false;
 int main() {
     const int screenWidth = 800;
     const int screenHeight = 800;
@@ -16,9 +18,22 @@ int main() {
         BeginDrawing();
         ClearBackground(GRAY);
         createGrid(gridWidth, gridHeight, cellSize);
-        // randomSpawn(gridWidth, gridHeight, cellSize);
         createButton(50, 620, 100, 50, "Random");
-        buttonIsClicked();
+        createButton(200, 620, 100, 50, "Default");
+        createButton(350, 620, 100, 50, "Custom");
+        createButton(50, 680, 180, 50, "Start Simulation");
+        createButton(250, 680, 100, 50, "Stop");
+        createButton(370, 680, 130, 50, "Clear Grid");
+        spawnRandomButton();
+        startSimulationButton();
+        stopSimulationButton();
+        clearGridButton();
+        customButton();
+        customGridSpawn();
+
+        if (isSimulationRunning) {
+            applyConwayRules();
+        }
         EndDrawing();
     }
 
