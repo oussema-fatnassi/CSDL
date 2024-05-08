@@ -232,7 +232,6 @@ void modeInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 int mouseX = GetMouseX();
-                int mouseY = GetMouseY();
 
                 int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
                 int newFPS = fpsValues[fpsIndex];
