@@ -16,4 +16,7 @@ extern bool isSimulationRunning;
 extern bool gridCells[40][40];
 extern Menu currentMenu;
 
+extern int fpsValues[];
+
+
 #endif // GLOBALS_HPP
