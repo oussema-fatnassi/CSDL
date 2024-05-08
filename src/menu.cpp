@@ -7,7 +7,12 @@
 #include "customize.hpp"
 using namespace std;
 
-int fpsValues[] = {1, 5, 10, 20, 30, 60};
+int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                   11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                   31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                   41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                   51, 52, 53, 54, 55, 56, 57, 58, 59, 60,};
 
 
 void drawMainMenu()
@@ -208,6 +213,7 @@ void modeInput()
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                isSimulationRunning = false;
                 clearGridButton();
             }
         }
@@ -216,6 +222,7 @@ void modeInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
                 clearGridButton();
+                isSimulationRunning = false;
                 drawMainMenu();
                 currentMenu = MAIN_MENU;
             }
@@ -227,7 +234,7 @@ void modeInput()
                 int mouseX = GetMouseX();
                 int mouseY = GetMouseY();
 
-                int fpsIndex = (mouseX - 70) / (200 / 5);
+                int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
                 int newFPS = fpsValues[fpsIndex];
                 SetTargetFPS(newFPS);
             }
@@ -267,6 +274,7 @@ void modeInput()
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                isSimulationRunning = false;
                 clearGridButton();
             }
         }
@@ -274,6 +282,7 @@ void modeInput()
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                isSimulationRunning = false;
                 clearGridButton();
                 drawMainMenu();
                 currentMenu = MAIN_MENU;
@@ -305,6 +314,7 @@ void modeInput()
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
+                    isSimulationRunning = false;
                     clearGridButton();
                 }
             }
@@ -312,6 +322,7 @@ void modeInput()
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
+                    isSimulationRunning = false;
                     clearGridButton();
                     drawMainMenu();
                     currentMenu = MAIN_MENU;
