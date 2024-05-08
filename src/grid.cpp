@@ -2,6 +2,7 @@
 #include <fstream>
 #include "globals.hpp"
 #include "menu.hpp"
+using namespace std;
 bool gridCells[40][40] = {{false}};
 
 void saveGridToFile()
@@ -135,7 +136,7 @@ void customGridSpawn() {
 
 void loadGridFromFile()
 {
-    std::ifstream file("matrix.txt");
+    ifstream file("matrix.txt");
 
     if (file.is_open())
     {
@@ -146,7 +147,6 @@ void loadGridFromFile()
                 file >> gridCells[i][j];
             }
         }
-
         file.close();
     }
 }

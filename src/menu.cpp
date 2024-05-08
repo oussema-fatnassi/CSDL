@@ -4,7 +4,11 @@
 #include "buttons.hpp"
 #include "globals.hpp"
 #include "grid.hpp"
+#include "customize.hpp"
 using namespace std;
+
+int fpsValues[] = {1, 5, 10, 20, 30, 60};
+
 
 void drawMainMenu()
 {
@@ -45,6 +49,7 @@ void drawCustomMode()
     createButton(250, 880, 100, 50, "Stop");
     createButton(370, 880, 130, 50, "Clear Grid");
     createButton(520, 880, 100, 50, "Quit");
+    drawFPSSlider();
 }
 
 void drawRandomMode()
@@ -215,6 +220,20 @@ void modeInput()
                 currentMenu = MAIN_MENU;
             }
         }
+        if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                int mouseX = GetMouseX();
+                int mouseY = GetMouseY();
+
+                int fpsIndex = (mouseX - 70) / (200 / 5);
+                int newFPS = fpsValues[fpsIndex];
+                SetTargetFPS(newFPS);
+            }
+
+        }
+        
     }
     else if (currentMenu == RANDOM_MODE)
     {
