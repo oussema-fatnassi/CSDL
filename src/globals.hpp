@@ -17,6 +17,7 @@ extern bool gridCells[40][40];
 extern Menu currentMenu;
 
 extern int fpsValues[];
+extern float zoomLevel;
 
 
 #endif // GLOBALS_HPP

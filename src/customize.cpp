@@ -27,3 +27,23 @@ void drawFPSSlider()
 
     DrawText(TextFormat("FPS: %d", fpsValues[fpsIndex]), sliderX + sliderWidth + 10, sliderY, 20, BLACK);
 }
+
+void drawZoomSlider()
+{
+    float sliderWidth = 200;
+    float sliderHeight = 20;
+    float sliderX = 400;
+    float sliderY = 950;
+
+    if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), {sliderX, sliderY, sliderWidth, sliderHeight}))
+    {
+        int mouseX = GetMouseX();
+        zoomLevel = (mouseX - sliderX) / (sliderWidth / 10); 
+        zoomLevel = Clamp(zoomLevel, 1.0f, 5.0f); 
+    }
+
+    DrawRectangle(sliderX, sliderY, sliderWidth, sliderHeight, WHITE);
+    DrawRectangle(sliderX + (zoomLevel * (sliderWidth / 10)), sliderY, 10, sliderHeight, BLACK);
+
+    DrawText(TextFormat("Zoom: %f", zoomLevel), sliderX + sliderWidth + 10, sliderY, 20, BLACK);
+}

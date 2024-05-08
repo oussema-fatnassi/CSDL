@@ -14,6 +14,8 @@ int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,};
 
+float zoomLevel = 1.0f;
+
 
 void drawMainMenu()
 {
@@ -55,6 +57,7 @@ void drawCustomMode()
     createButton(370, 880, 130, 50, "Clear Grid");
     createButton(520, 880, 100, 50, "Quit");
     drawFPSSlider();
+    drawZoomSlider();
 }
 
 void drawRandomMode()
