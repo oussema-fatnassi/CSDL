@@ -66,6 +66,7 @@ void drawRandomMode()
     createButton(370, 880, 100, 50, "Stop");
     createButton(490, 880, 130, 50, "Clear Grid");
     createButton(650, 880, 100, 50, "Quit");
+    drawFPSSlider();
 }
 
 void drawDefaultMode()
@@ -76,6 +77,8 @@ void drawDefaultMode()
     createButton(250, 880, 100, 50, "Stop");
     createButton(370, 880, 130, 50, "Clear Grid");
     createButton(520, 880, 100, 50, "Quit");
+    drawFPSSlider();
+
 }
 void drawModeMenu()
 {
@@ -287,6 +290,17 @@ void modeInput()
                 currentMenu = MAIN_MENU;
             }
         }
+        else if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                int mouseX = GetMouseX();
+
+                int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
+                int newFPS = fpsValues[fpsIndex];
+                SetTargetFPS(newFPS);
+            }
+        }
     }
     else if (currentMenu == DEFAULT_MODE)
         {
@@ -325,6 +339,17 @@ void modeInput()
                     clearGridButton();
                     drawMainMenu();
                     currentMenu = MAIN_MENU;
+                }
+            }
+            else if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+            {
+                if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+                {
+                    int mouseX = GetMouseX();
+
+                    int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
+                    int newFPS = fpsValues[fpsIndex];
+                    SetTargetFPS(newFPS);
                 }
             }
         }
