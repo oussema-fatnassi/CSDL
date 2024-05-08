@@ -10,5 +10,6 @@ void drawModeMenu();
 void drawCustomMode();
 void drawRandomMode();
 void drawDefaultMode();
+void initFPSValues();
 
 #endif  
