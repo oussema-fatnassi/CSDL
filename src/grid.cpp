@@ -26,8 +26,8 @@ void saveGridToFile()
 
 void createGrid(int screenWidth, int screenHeight, int cellSize)
 {
-    int rows = screenHeight / cellSize;
-    int columns = screenWidth / cellSize;
+    int rows = screenHeight / (cellSize/zoomLevel);
+    int columns = screenWidth / (cellSize/zoomLevel);
 
     for (int i = 0; i < rows; i++)
     {
@@ -35,11 +35,11 @@ void createGrid(int screenWidth, int screenHeight, int cellSize)
         {
             if (gridCells[i][j])
             {
-                DrawRectangle(j * cellSize + 1, i * cellSize + 1, cellSize - 1, cellSize - 1, BLACK);
+                DrawRectangle(j * (cellSize/zoomLevel) + 1, i * (cellSize/zoomLevel) + 1, (cellSize/zoomLevel) - 1, (cellSize/zoomLevel) - 1, BLACK);
             }
             else
             {
-                DrawRectangle(j * cellSize + 1, i * cellSize + 1, cellSize - 1, cellSize - 1, WHITE);
+                DrawRectangle(j * (cellSize/zoomLevel) + 1, i * (cellSize/zoomLevel) + 1, (cellSize/zoomLevel) - 1, (cellSize/zoomLevel) - 1, WHITE);
             }
         }
     }
