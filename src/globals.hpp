@@ -5,6 +5,7 @@ enum Menu
 {
     MAIN_MENU,
     INTRODUCTION,
+    RULES,
     CREDITS,
     CUSTOM_MODE,
     RANDOM_MODE,
@@ -20,6 +21,7 @@ extern int fpsValues[];
 extern int zoomLevel;
 
 extern Font font;
-extern Image icon;
+// extern Texture2D conwayTexture;
+// extern Image conway;
 
 #endif // GLOBALS_HPP

@@ -14,7 +14,54 @@ int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,};
 
+Texture2D conwayTexture;
+Texture2D lonelinessTexture;
+Texture2D overcrowdingTexture;
+Texture2D reproductionTexture;
+Texture2D stasisTexture;
+Texture2D gameOfLifeExampleTexture; 
+
+Image conway;
+Image loneliness;
+Image overcrowding;
+Image reproduction;
+Image stasis;
+Image gameOfLifeExample;
+
+
 int zoomLevel = 1;
+
+void loadImages()
+{
+    conway = LoadImage("assets/images/conway.png");
+    ImageResize(&conway, 348, 310);
+    conwayTexture = LoadTextureFromImage(conway);
+    gameOfLifeExample = LoadImage("assets/images/GameLifeExample.png");
+    ImageResize(&gameOfLifeExample, 400, 230);
+    gameOfLifeExampleTexture = LoadTextureFromImage(gameOfLifeExample);
+    loneliness = LoadImage("assets/images/loneliness.png");
+    lonelinessTexture = LoadTextureFromImage(loneliness);
+    overcrowding = LoadImage("assets/images/overcrowding.png");
+    overcrowdingTexture = LoadTextureFromImage(overcrowding);
+    reproduction = LoadImage("assets/images/reproduction.png");
+    reproductionTexture = LoadTextureFromImage(reproduction);
+    stasis = LoadImage("assets/images/stasis.png");
+    stasisTexture = LoadTextureFromImage(stasis);
+}
+
+void unloadImages()
+{
+    UnloadTexture(conwayTexture);
+    UnloadImage(conway);
+    UnloadTexture(lonelinessTexture);
+    UnloadImage(loneliness);
+    UnloadTexture(overcrowdingTexture);
+    UnloadImage(overcrowding);
+    UnloadTexture(reproductionTexture);
+    UnloadImage(reproduction);
+    UnloadTexture(stasisTexture);
+    UnloadImage(stasis);
+}
 
 void drawMainMenu()
 {
@@ -30,13 +77,35 @@ void drawMainMenu()
 void drawIntroduction()
 {
     ClearBackground(GRAY);
-    DrawText("Introduction", 350, 100, 50, BLACK);
-    DrawText("The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.", 50, 200, 15, WHITE);
-    DrawText("The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.", 50, 250, 15, WHITE);
-    DrawText("One interacts with the Game of Life by creating an initial configuration and observing how it evolves.", 50, 300, 15, WHITE);
-    createButton(300, 600, 200, 50, "Skip", font);
-    createButton(300, 700, 200, 50, "Back", font);
+    DrawTexture(conwayTexture,20, 300, WHITE);
+    DrawTexture(gameOfLifeExampleTexture, 385, 350, WHITE);
+    int introductionTextWidth = MeasureTextEx(font,"Introduction", 70,0).x;
+    float xPos = (GetScreenWidth() - introductionTextWidth) / 2;
+    int firstLineTextWidth = MeasureTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", 20, 0).x;
+    float firstLineXPos = (GetScreenWidth() - firstLineTextWidth) / 2;
+    int secondLineTextWidth = MeasureTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", 20, 0).x;
+    float secondLineXPos = (GetScreenWidth() - secondLineTextWidth) / 2;
+    int thirdLineTextWidth = MeasureTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", 20, 0).x;
+    float thirdLineXPos = (GetScreenWidth() - thirdLineTextWidth) / 2;
+
+    DrawTextEx(font,"Introduction", {xPos, 100}, 70, 0, BLACK);
+    DrawTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", {firstLineXPos, 200}, 20, 0, WHITE);
+    DrawTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", {secondLineXPos, 230}, 20, 0, WHITE);
+    DrawTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", {thirdLineXPos, 260}, 20, 0, WHITE);
+    createButton(300, 700, 200, 50, "Skip", font);
+    createButton(300, 760, 200, 50, "Back", font);
+    createButton(300, 820, 200, 50, "Continue", font);
 }
+
+void drawRules()
+{
+    ClearBackground(GRAY);
+    DrawTexture(lonelinessTexture, 20, 300, WHITE);
+    DrawTexture(overcrowdingTexture, 20, 500, WHITE);
+    DrawTexture(reproductionTexture, 400, 300, WHITE);
+    DrawTexture(stasisTexture, 400, 500, WHITE);
+}
+
 
 void drawCredits()
 {
@@ -103,7 +172,7 @@ void menuInput()
                 currentMenu = INTRODUCTION;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))   
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -128,18 +197,26 @@ void menuInput()
     }
     else if (currentMenu == INTRODUCTION)
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))    //skip button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MAIN_MENU;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // continue button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                drawRules();
+                currentMenu = RULES;
             }
         }
     }
