@@ -7,14 +7,14 @@
 #include "customize.hpp"
 using namespace std;
 
-int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,                       // Array of FPS values
                    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
                    21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,};
 
-Texture2D conwayTexture;
+Texture2D conwayTexture;                                                // 2DTextures for the menu
 Texture2D lonelinessTexture;
 Texture2D overcrowdingTexture;
 Texture2D reproductionTexture;
@@ -27,7 +27,7 @@ Texture2D blockTexture;
 Texture2D backgroundTexture; 
 Texture2D background1Texture; 
 
-Image conway;
+Image conway;                                                           // Images for the menu
 Image loneliness;
 Image overcrowding;
 Image reproduction;
@@ -42,7 +42,7 @@ Image background1;
 
 int zoomLevel = 1;
 
-void loadImages()
+void loadImages()                                                       // Load images and resize them
 {
     conway = LoadImage("assets/images/conway.png");
     ImageResize(&conway, 348, 310);
@@ -82,7 +82,7 @@ void loadImages()
     background1Texture = LoadTextureFromImage(background1);
 }
 
-void unloadImages()
+void unloadImages()                                                         // Unload images and textures to free memory
 {
     UnloadTexture(conwayTexture);
     UnloadImage(conway);
@@ -108,7 +108,7 @@ void unloadImages()
     UnloadImage(background);
 }
 
-void drawMainMenu()
+void drawMainMenu()                                                         // Draw the main menu with buttons
 {
     DrawTexture(background1Texture, 0, 0, WHITE);
     int textWidth = MeasureTextEx(font,"Game of Life", 90,0).x;
@@ -119,7 +119,7 @@ void drawMainMenu()
     createButton(300, 500, 200, 50, "Exit",font, 200, 50);
 }
 
-void drawIntroduction()
+void drawIntroduction()                                                     // Draw the introduction menu with buttons
 {
     ClearBackground(GRAY);
     DrawTexture(backgroundTexture, 0, 0, WHITE);
@@ -145,7 +145,7 @@ void drawIntroduction()
     createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
 
-void drawCellTypes()
+void drawCellTypes()                                                        // Draw the cell types menu with buttons
 {
     ClearBackground(WHITE);
     DrawTexture(backgroundTexture, 0, 0, WHITE);
@@ -173,7 +173,7 @@ void drawCellTypes()
     DrawTextEx(font, "These cells move across the grid, like gliders", {20, 710}, 20, 0, WHITE);
 }
 
-void drawRules()
+void drawRules()                                                            // Draw the rules menu with buttons
 {   
     ClearBackground(WHITE);
     DrawTexture(backgroundTexture, 0, 0, WHITE);
@@ -198,7 +198,7 @@ void drawRules()
     createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
 
-void drawCredits()
+void drawCredits()                                                          // Draw the credits menu with buttons
 {
     ClearBackground(GRAY);
     DrawTexture(background1Texture, 0, 0, WHITE);
@@ -212,7 +212,7 @@ void drawCredits()
     createButton(300, 600, 200, 50, "Back", font, 200, 50);
 }
 
-void drawCustomMode()
+void drawCustomMode()                                                       // Draw the custom mode menu with buttons
 {
     ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
@@ -228,10 +228,9 @@ void drawCustomMode()
     createButton(300, 880, 100, 30, "Glider Gun", font, 100, 30);
     createButton(410, 880, 140, 30, "Pentadecathlon", font, 140, 30);
     createButton(560, 880, 170, 30, "Simkin Glider Gun", font, 170, 30);   
-    // drawZoomSlider();
 }
 
-void drawRandomMode()
+void drawRandomMode()                                                           // Draw the random mode menu with buttons
 {
     ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
@@ -245,7 +244,7 @@ void drawRandomMode()
     drawFPSSlider();
 }
 
-void drawDefaultMode()
+void drawDefaultMode()                                                          // Draw the default mode menu with buttons
 {
     ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
@@ -257,7 +256,8 @@ void drawDefaultMode()
     DrawTextEx(font, std::to_string(generationCount).c_str(), {620, 930}, 20, 0, WHITE); // Draw the generation count
     drawFPSSlider();
 }
-void drawModeMenu()
+
+void drawModeMenu()                                                             // Draw the mode menu with buttons
 {
     DrawTexture(background1Texture, 0, 0, WHITE);
     int modeTextWidth = MeasureTextEx(font, "CHOOSE A MODE", 50, 0).x;
@@ -269,33 +269,25 @@ void drawModeMenu()
     createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
 
-void menuInput()
+void menuInput()                                                                // Check for mouse input in the menus
 {
-    if (currentMenu == MAIN_MENU)
+    if (currentMenu == MAIN_MENU)                                                   //MAIN MENU
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))        //MAIN MENU: Introduction button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = INTRODUCTION;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))   
-        {
-            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-            {
-                drawModeMenu();
-                currentMenu = MODE_MENU;
-            }
-        }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))       //MAIN MENU: Credits button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = CREDITS;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 500, 200, 50}))
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 500, 200, 50}))       //MAIN MENU: Exit button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -303,23 +295,23 @@ void menuInput()
             }
         }
     }
-    else if (currentMenu == INTRODUCTION)
+    else if (currentMenu == INTRODUCTION)                                       //INTRODUCTION MENU
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //skip button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //INTRODUCTION MENU: skip button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   //INTRODUCTION MENU: back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MAIN_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   // continue button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   //INTRODUCTION MENU: continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -328,23 +320,23 @@ void menuInput()
             }
         }
     }
-    else if (currentMenu == RULES)
+    else if (currentMenu == RULES)                                              //RULES MENU
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //skip button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //RULES MENU: skip button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   //RULES MENU: back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = INTRODUCTION;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   // continue button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   //RULES MENU: continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -353,16 +345,16 @@ void menuInput()
             }
         }
     }
-    else if (currentMenu == CELL_TYPES)
+    else if (currentMenu == CELL_TYPES)                                         //CELL TYPES MENU
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //continue button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //CELL TYPES MENU: continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   //CELL TYPES MENU: back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -370,9 +362,9 @@ void menuInput()
             }
         }
     }
-    else if (currentMenu == CREDITS)
+    else if (currentMenu == CREDITS)                                            //CREDITS MENU
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 600, 200, 50}))    //CREDITS MENU: back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -385,9 +377,9 @@ void menuInput()
 
 void modeInput()
 {
-    if (currentMenu == MODE_MENU)
+    if (currentMenu == MODE_MENU)                                               //MODE MENU: choose a mode
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))    //Custom mode button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))    //MODE MENU: Custom mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -395,7 +387,7 @@ void modeInput()
                 currentMenu = CUSTOM_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 200, 200, 50}))    //Random mode button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 200, 200, 50}))    //MODE MENU: Random mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -403,7 +395,7 @@ void modeInput()
                 currentMenu = RANDOM_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))    //Default mode button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))    //MODE MENU: Default mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -412,7 +404,7 @@ void modeInput()
                 currentMenu = DEFAULT_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))       //Back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))       //MODE MENU: Back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -421,29 +413,29 @@ void modeInput()
             }
         }
     }
-    else if (currentMenu == CUSTOM_MODE) {
+    else if (currentMenu == CUSTOM_MODE) {                                              //CUSTOM MODE
         customGridSpawn();
 
-        if (CheckCollisionPointRec(GetMousePosition(), {115, 810, 180, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {115, 810, 180, 50}))            //CUSTOM MODE: Start simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = true;
             }
         }
-        if(isSimulationRunning)
+        if(isSimulationRunning)                                                         //CUSTOM MODE: Apply Conway's rules if simulation is running
         {
             applyConwayRules();
         }
         
-        if (CheckCollisionPointRec(GetMousePosition(), {315, 810, 100, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {315, 810, 100, 50}))            //CUSTOM MODE: Stop simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = false;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {435, 810, 130, 50}))       //Clear grid button
+        else if (CheckCollisionPointRec(GetMousePosition(), {435, 810, 130, 50}))       //CUSTOM MODE: Clear grid button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -451,7 +443,7 @@ void modeInput()
                 clearGridButton();
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {585, 810, 100, 50}))       //Quit button
+        else if (CheckCollisionPointRec(GetMousePosition(), {585, 810, 100, 50}))       //CUSTOM MODE: Quit button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -462,7 +454,7 @@ void modeInput()
                 currentMenu = MAIN_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 60, 30}))       //Glider
+        else if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 60, 30}))       //CUSTOM MODE: load "Glider" matrix
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -471,7 +463,7 @@ void modeInput()
                 loadGridFromFile("assets/matrices/glider.txt");
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {120, 880, 170, 30}))       //Queen Bee Shuttle
+        else if (CheckCollisionPointRec(GetMousePosition(), {120, 880, 170, 30}))       //CUSTOM MODE: load "Queen Bee Shuttle" matrix
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -480,7 +472,7 @@ void modeInput()
                 loadGridFromFile("assets/matrices/queen_bee_shuttle.txt");
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 880, 100, 30}))       //Glider Gun
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 880, 100, 30}))       //CUSTOM MODE: load "Glider Gun" matrix
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -489,7 +481,7 @@ void modeInput()
                 loadGridFromFile("assets/matrices/glider_gun.txt");
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {410, 880, 140, 30}))       //Pentadecathlon
+        else if (CheckCollisionPointRec(GetMousePosition(), {410, 880, 140, 30}))       //CUSTOM MODE: load "Pentadecathlon" matrix
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -498,7 +490,7 @@ void modeInput()
                 loadGridFromFile("assets/matrices/pentadecathlon.txt");
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {560, 880, 170, 30}))       //Simkin Glider Gun
+        else if (CheckCollisionPointRec(GetMousePosition(), {560, 880, 170, 30}))       //CUSTOM MODE: load "Simkin Glider Gun" matrix
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -507,7 +499,7 @@ void modeInput()
                 loadGridFromFile("assets/matrices/simkin_glider_gun.txt");
             }
         }
-        if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
+        if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20}))             // FPS slider
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -521,10 +513,10 @@ void modeInput()
 
         
     }
-    else if (currentMenu == RANDOM_MODE)
+    else if (currentMenu == RANDOM_MODE)                                        //RANDOM MODE
     {
 
-        if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))    //Reroll button
+        if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))    //RANDOM MODE: Reroll button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -533,26 +525,26 @@ void modeInput()
                 randomSpawn(800, 600, 20);
             }
         }
-        if (CheckCollisionPointRec(GetMousePosition(), {170, 820, 180, 50}))    // Start simulation button
+        if (CheckCollisionPointRec(GetMousePosition(), {170, 820, 180, 50}))    //RANDOM MODE: Start simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = true;
             }
         }
-        if(isSimulationRunning)
+        if(isSimulationRunning)                                                 //RANDOM MODE: Apply Conway's rules if simulation is running
         {
             applyConwayRules();
         }
         
-        if (CheckCollisionPointRec(GetMousePosition(), {370, 820, 130, 50}))    // Stop simulation button
+        if (CheckCollisionPointRec(GetMousePosition(), {370, 820, 130, 50}))    //RANDOM MODE: Stop simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = false;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {520, 820, 100, 50}))       //Clear grid button
+        else if (CheckCollisionPointRec(GetMousePosition(), {520, 820, 100, 50}))       //RANDOM MODE: Clear grid button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -560,7 +552,7 @@ void modeInput()
                 clearGridButton();
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {650, 820, 100, 50}))       //Quit button
+        else if (CheckCollisionPointRec(GetMousePosition(), {650, 820, 100, 50}))       //RANDOM MODE: Quit button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -571,7 +563,7 @@ void modeInput()
                 currentMenu = MAIN_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
+        else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // RANDOM MODE: FPS slider
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -583,29 +575,29 @@ void modeInput()
             }
         }
     }
-    else if (currentMenu == DEFAULT_MODE)
+    else if (currentMenu == DEFAULT_MODE)                                                   //DEFAULT MODE
         {
 
-            if (CheckCollisionPointRec(GetMousePosition(), {120, 820, 180, 50}))
+            if (CheckCollisionPointRec(GetMousePosition(), {120, 820, 180, 50}))            //DEFAULT MODE: Start simulation button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
                     isSimulationRunning = true;
                 }
             }
-            if(isSimulationRunning)
+            if(isSimulationRunning)                                                         //DEFAULT MODE: Apply Conway's rules if simulation is running
             {
                 applyConwayRules();
             }
             
-            if (CheckCollisionPointRec(GetMousePosition(), {320, 820, 100, 50}))
+            if (CheckCollisionPointRec(GetMousePosition(), {320, 820, 100, 50}))            //DEFAULT MODE: Stop simulation button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
                     isSimulationRunning = false;
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {440, 820, 130, 50}))       //Clear grid button
+            else if (CheckCollisionPointRec(GetMousePosition(), {440, 820, 130, 50}))       //DEFAULT MODE: Clear grid button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
@@ -614,7 +606,7 @@ void modeInput()
                     loadGridFromFile("assets/matrices/default.txt");
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {590, 820, 100, 50}))       //Quit button
+            else if (CheckCollisionPointRec(GetMousePosition(), {590, 820, 100, 50}))       //DEFAULT MDOE: Quit button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
@@ -625,7 +617,7 @@ void modeInput()
                     currentMenu = MAIN_MENU;
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
+            else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20}))       //DEFAULT MODE: FPS slider
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
