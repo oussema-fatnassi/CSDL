@@ -25,7 +25,7 @@ void drawFPSSlider()
     DrawRectangle(sliderX, sliderY, sliderWidth, sliderHeight, WHITE);
     DrawRectangle(sliderX + (fpsIndex * (sliderWidth / 60)), sliderY, 10, sliderHeight, BLACK);
 
-    DrawText(TextFormat("FPS: %d", fpsValues[fpsIndex]), sliderX + sliderWidth + 10, sliderY, 20, BLACK);
+    DrawTextEx(font,TextFormat("FPS: %d", fpsValues[fpsIndex]), {sliderX + sliderWidth + 10, sliderY}, 20, 0, BLACK);
 }
 
 void drawZoomSlider()

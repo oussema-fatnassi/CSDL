@@ -4,6 +4,7 @@
 #include "menu.hpp"
 using namespace std;
 bool gridCells[40][40] = {{false}};
+int generationCount = 0;
 
 void saveGridToFile()
 {
@@ -85,6 +86,7 @@ int countLiveNeighbors(int row, int col)
 
 void applyConwayRules()
 {
+    generationCount++;
     bool nextGrid[40][40];
 
     for (int i = 0; i < 40; i++)

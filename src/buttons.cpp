@@ -52,6 +52,7 @@ void createButton(float x, float y, int width, int height, const char *text, Fon
 
 void clearGridButton()
 {
+    generationCount = 0;
     for (int i = 0; i < 40; i++)
     {
         for (int j = 0; j < 40; j++)

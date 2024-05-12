@@ -201,8 +201,10 @@ void drawCustomMode()
     createButton(250, 880, 100, 50, "Stop", font, 100, 50);
     createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
     createButton(520, 880, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
     drawFPSSlider();
-    drawZoomSlider();
+    // drawZoomSlider();
 }
 
 void drawRandomMode()
@@ -214,6 +216,8 @@ void drawRandomMode()
     createButton(370, 880, 100, 50, "Stop", font, 100, 50);
     createButton(490, 880, 130, 50, "Clear Grid", font, 130, 50);
     createButton(650, 880, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
     drawFPSSlider();
 }
 
@@ -225,8 +229,9 @@ void drawDefaultMode()
     createButton(250, 880, 100, 50, "Stop", font, 100, 50);
     createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
     createButton(520, 880, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
     drawFPSSlider();
-
 }
 void drawModeMenu()
 {

@@ -22,7 +22,6 @@ extern int fpsValues[];
 extern int zoomLevel;
 
 extern Font font;
-// extern Texture2D conwayTexture;
-// extern Image conway;
+extern int generationCount;
 
 #endif // GLOBALS_HPP
