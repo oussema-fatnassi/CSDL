@@ -14,5 +14,6 @@ void initFPSValues();
 void loadImages();
 void unloadImages();
 void drawRules();
+void drawCellTypes();
 
 #endif  

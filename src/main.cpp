@@ -41,6 +41,9 @@ int main() {
         case RULES:
             drawRules();
             break;
+        case CELL_TYPES:
+            drawCellTypes();
+            break;
         case CREDITS:
             drawCredits();
             break;

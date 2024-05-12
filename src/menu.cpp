@@ -19,7 +19,11 @@ Texture2D lonelinessTexture;
 Texture2D overcrowdingTexture;
 Texture2D reproductionTexture;
 Texture2D stasisTexture;
-Texture2D gameOfLifeExampleTexture; 
+Texture2D gameOfLifeExampleTexture;
+Texture2D gliderTexture;
+Texture2D blinkerTexture;
+Texture2D toadTexture;
+Texture2D blockTexture; 
 
 Image conway;
 Image loneliness;
@@ -27,6 +31,10 @@ Image overcrowding;
 Image reproduction;
 Image stasis;
 Image gameOfLifeExample;
+Image glider;
+Image blinker;
+Image toad;
+Image block;
 
 
 int zoomLevel = 1;
@@ -40,19 +48,37 @@ void loadImages()
     ImageResize(&gameOfLifeExample, 400, 230);
     gameOfLifeExampleTexture = LoadTextureFromImage(gameOfLifeExample);
     loneliness = LoadImage("assets/images/loneliness.png");
+    ImageResize(&loneliness, 175, 80);
     lonelinessTexture = LoadTextureFromImage(loneliness);
     overcrowding = LoadImage("assets/images/overcrowding.png");
+    ImageResize(&overcrowding, 175, 80);
     overcrowdingTexture = LoadTextureFromImage(overcrowding);
     reproduction = LoadImage("assets/images/reproduction.png");
+    ImageResize(&reproduction, 175, 80);
     reproductionTexture = LoadTextureFromImage(reproduction);
     stasis = LoadImage("assets/images/stasis.png");
+    ImageResize(&stasis, 175, 80);
     stasisTexture = LoadTextureFromImage(stasis);
+    glider = LoadImage("assets/images/glider.png");
+    ImageResize(&glider, 460, 90);
+    gliderTexture = LoadTextureFromImage(glider);
+    blinker = LoadImage("assets/images/blinker.png");
+    ImageResize(&blinker, 140, 70);
+    blinkerTexture = LoadTextureFromImage(blinker);
+    toad = LoadImage("assets/images/toad.png");
+    ImageResize(&toad, 140, 70);
+    toadTexture = LoadTextureFromImage(toad);
+    block = LoadImage("assets/images/block.png");
+    ImageResize(&block, 70, 70);
+    blockTexture = LoadTextureFromImage(block);
 }
 
 void unloadImages()
 {
     UnloadTexture(conwayTexture);
     UnloadImage(conway);
+    UnloadTexture(gameOfLifeExampleTexture);
+    UnloadImage(gameOfLifeExample);
     UnloadTexture(lonelinessTexture);
     UnloadImage(loneliness);
     UnloadTexture(overcrowdingTexture);
@@ -61,6 +87,14 @@ void unloadImages()
     UnloadImage(reproduction);
     UnloadTexture(stasisTexture);
     UnloadImage(stasis);
+    UnloadTexture(gliderTexture);
+    UnloadImage(glider);
+    UnloadTexture(blinkerTexture);
+    UnloadImage(blinker);
+    UnloadTexture(toadTexture);
+    UnloadImage(toad);
+    UnloadTexture(blockTexture);
+    UnloadImage(block);
 }
 
 void drawMainMenu()
@@ -79,7 +113,7 @@ void drawIntroduction()
     ClearBackground(GRAY);
     DrawTexture(conwayTexture,20, 300, WHITE);
     DrawTexture(gameOfLifeExampleTexture, 385, 350, WHITE);
-    int introductionTextWidth = MeasureTextEx(font,"Introduction", 70,0).x;
+    int introductionTextWidth = MeasureTextEx(font,"Introduction", 50,0).x;
     float xPos = (GetScreenWidth() - introductionTextWidth) / 2;
     int firstLineTextWidth = MeasureTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", 20, 0).x;
     float firstLineXPos = (GetScreenWidth() - firstLineTextWidth) / 2;
@@ -88,7 +122,7 @@ void drawIntroduction()
     int thirdLineTextWidth = MeasureTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", 20, 0).x;
     float thirdLineXPos = (GetScreenWidth() - thirdLineTextWidth) / 2;
 
-    DrawTextEx(font,"Introduction", {xPos, 100}, 70, 0, BLACK);
+    DrawTextEx(font,"Introduction", {xPos, 20}, 50, 0, BLACK);
     DrawTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", {firstLineXPos, 200}, 20, 0, WHITE);
     DrawTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", {secondLineXPos, 230}, 20, 0, WHITE);
     DrawTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", {thirdLineXPos, 260}, 20, 0, WHITE);
@@ -97,13 +131,54 @@ void drawIntroduction()
     createButton(300, 820, 200, 50, "Continue", font);
 }
 
-void drawRules()
+void drawCellTypes()
 {
-    ClearBackground(GRAY);
-    DrawTexture(lonelinessTexture, 20, 300, WHITE);
-    DrawTexture(overcrowdingTexture, 20, 500, WHITE);
-    DrawTexture(reproductionTexture, 400, 300, WHITE);
-    DrawTexture(stasisTexture, 400, 500, WHITE);
+    ClearBackground(WHITE);
+    int cellTypesTextWidth = MeasureTextEx(font, "Cell Types", 50, 0).x;
+    float cellTypesXPos = (GetScreenWidth() - cellTypesTextWidth) / 2;
+    DrawTextEx(font, "Cell Types", {cellTypesXPos, 20}, 50, 0, BLACK);
+    DrawTexture(blockTexture, 70, 140, WHITE);
+    DrawTexture(blinkerTexture, 70, 270, WHITE);
+    DrawTexture(toadTexture, 70, 400, WHITE);
+    DrawTexture(gliderTexture, 70, 530, WHITE);
+    createButton(300, 760, 200, 50, "Back", font);
+    createButton(300, 820, 200, 50, "Continue", font);
+
+    DrawTextEx(font, "BLOCK:", {20, 90}, 20, 0, BLACK);
+    DrawTextEx(font, "A still life pattern that does not change from one generation to the next", {20, 110}, 20, 0, BLACK);
+    DrawTextEx(font, "BLINKER:", {20, 220}, 20, 0, BLACK);
+    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 240}, 20, 0, BLACK);
+    DrawTextEx(font, "TOAD:", {20, 350}, 20, 0, BLACK);
+    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 370}, 20, 0, BLACK);
+    DrawTextEx(font, "GLIDER:", {20, 480}, 20, 0, BLACK);
+    DrawTextEx(font, "A spaceship that moves diagonally across the grid", {20, 500}, 20, 0, BLACK);
+    DrawTextEx(font, "OSCILLATOR CELLS:", {20, 650}, 20, 0, BLACK);
+    DrawTextEx(font, "These cells form patterns that alternate between two or more states, like blinkers and toads", {20, 670}, 20, 0, BLACK);
+    DrawTextEx(font, "SPACESHIP CELLS:", {20, 720}, 20, 0, BLACK);
+    DrawTextEx(font, "These cells move across the grid, like gliders", {20, 740}, 20, 0, BLACK);
+}
+
+void drawRules()
+{   
+    int rulesTextWidth = MeasureTextEx(font, "Rules", 50, 0).x;
+    float rulesXPos = (GetScreenWidth() - rulesTextWidth) / 2;
+    DrawTextEx(font, "Rules", {rulesXPos, 20}, 50, 0, BLACK);
+    DrawTextEx(font, "LONELINESS:", {280, 140}, 20, 0, BLACK);
+    DrawTextEx(font, "A cell with less than 2 adjoining cells dies", {280, 160}, 20, 0, BLACK);
+    DrawTextEx(font, "OVERCROWDING:", {280, 270}, 20, 0, BLACK);
+    DrawTextEx(font, "A cell with more than 3 adjoining cells dies", {280, 290}, 20, 0, BLACK);
+    DrawTextEx(font, "REPRODUCTION:", {280, 400}, 20, 0, BLACK);
+    DrawTextEx(font, "An empty cell with 3 adjoining cells becomes alive", {280, 420}, 20, 0, BLACK);
+    DrawTextEx(font, "STASIS:", {280, 530}, 20, 0, BLACK);
+    DrawTextEx(font, "A cell with exactly 2 adjoining cells survives", {280, 550}, 20, 0, BLACK);
+    ClearBackground(WHITE);
+    DrawTexture(lonelinessTexture, 70, 120, WHITE);
+    DrawTexture(overcrowdingTexture, 70, 250, WHITE);
+    DrawTexture(reproductionTexture, 70, 380, WHITE);
+    DrawTexture(stasisTexture, 70, 510, WHITE);
+    createButton(300, 700, 200, 50, "Skip", font);
+    createButton(300, 760, 200, 50, "Back", font);
+    createButton(300, 820, 200, 50, "Continue", font);
 }
 
 
@@ -216,6 +291,48 @@ void menuInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 drawRules();
+                currentMenu = RULES;
+            }
+        }
+    }
+    else if (currentMenu == RULES)
+    {
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))    //skip button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                currentMenu = MODE_MENU;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                currentMenu = INTRODUCTION;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // continue button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                drawCellTypes();
+                currentMenu = CELL_TYPES;
+            }
+        }
+    }
+    else if (currentMenu == CELL_TYPES)
+    {
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))    //continue button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                currentMenu = MODE_MENU;
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
                 currentMenu = RULES;
             }
         }
