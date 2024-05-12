@@ -7,18 +7,18 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
-#define FILTER_BILINEAR 2
+#define FILTER_BILINEAR 2                                                               // Define filter bilinear for font texture 
 
 Font font;
 
-void loadFont() {
+void loadFont() {                                                                       // Load font
     font = LoadFontEx("assets/fonts/AmericanTypewriterRegular.ttf", 64, 0, 0);
     SetTextureFilter(font.texture, 2);
 }
 
-bool isSimulationRunning = false;
-Menu currentMenu = MAIN_MENU;
-Color backgroundColor = {0,28,48,120};
+bool isSimulationRunning = false;                                                       // Initialisation of Simulation state
+Menu currentMenu = MAIN_MENU;                                                           // Initialisation of Menu state
+Color backgroundColor = {0,28,48,120};                                                  // Initialisation of Background color
 
 int main() {
     const int screenWidth = 800;
@@ -31,7 +31,7 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
 
-        switch (currentMenu) {
+        switch (currentMenu) {                                                          // Switch case for menu state based on currentMenu
         case MAIN_MENU:
             drawMainMenu();
             break;
@@ -67,8 +67,8 @@ int main() {
 
         EndDrawing();
     }
-    UnloadFont(font);
-    unloadImages();
+    UnloadFont(font);                                                                                   // Unload font to free memory
+    unloadImages();                                                                                     // Unload images to free memory
     CloseWindow();
     return 0;
 }
