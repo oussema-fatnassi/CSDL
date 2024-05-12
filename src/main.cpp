@@ -7,6 +7,18 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#define FILTER_BILINEAR 2
+
+
+Font font;
+Image icon;
+
+void InitializeResources() {
+    font = LoadFontEx("assets/fonts/AmericanTypewriterRegular.ttf", 64, 0, 0);
+    SetTextureFilter(font.texture, 2);
+    icon = LoadImage("assets/images/icon.png");
+    
+}
 
 bool isSimulationRunning = false;
 Menu currentMenu = MAIN_MENU;
@@ -14,9 +26,14 @@ Menu currentMenu = MAIN_MENU;
 int main() {
     const int screenWidth = 800;
     const int screenHeight = 1000;
+    
+    // Image icon = LoadImage("assets/images/icon.png");
+    // SetWindowIcon(icon);
+    // UnloadImage(icon);
 
     InitWindow(screenWidth, screenHeight, "Game of Life");
-
+    InitializeResources();
+    SetWindowIcon(icon);
     SetTargetFPS(5);
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -52,6 +69,8 @@ int main() {
 
         EndDrawing();
     }
+    UnloadFont(font);
+    UnloadImage(icon);
 
     CloseWindow();
     return 0;

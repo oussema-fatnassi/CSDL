@@ -55,7 +55,7 @@ void randomSpawn(int screenWidth, int screenHeight, int cellSize)
     {
         for (int j = 0; j < columns; j++)
         {
-            gridCells[i][j] = GetRandomValue(0, 1) == 1;
+            gridCells[i][j] = GetRandomValue(0, 3) == 1;
         }
     }
 }

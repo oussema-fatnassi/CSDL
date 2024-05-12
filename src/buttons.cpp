@@ -8,47 +8,23 @@ using namespace std;
 bool isCustomMode = false;
 
 
-void createButton(int x, int y, int width, int height, const char *text)
+void createButton(float x, float y, int width, int height, const char *text, Font font)
 {
     DrawRectangle(x, y, width, height, WHITE);
-    DrawText(text, x + 10, y + 15, 20, BLACK);
+    
+    // Calculate the width of the text
+    int textWidth = MeasureTextEx(font, text, 20, 0).x;
+    
+    // Calculate the x-coordinate to center the text horizontally
+    float xPos = x + (width - textWidth) / 2;
+    
+    // Calculate the y-coordinate to center the text vertically
+    float yPos = y + (height - 20) / 2; // Assuming font size is 20
+
+    // Draw the text using the specified font
+    DrawTextEx(font, text, { xPos, yPos }, 20, 0, BLACK);
 }
 
-// void spawnRandomButton()
-// {
-//     if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))
-//     {
-//         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-//         {
-//             cout << "Button clicked" << endl;
-//             randomSpawn(800, 600, 20);
-//         }
-//     }
-// }
-
-// void startSimulationButton()
-// {
-//     if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
-//     {
-//         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-//         {
-//             cout << "Simulation started" << endl;
-//             isSimulationRunning = true;
-//         }
-//     }
-// }
-
-// void stopSimulationButton()
-// {
-//     if (CheckCollisionPointRec(GetMousePosition(), {250, 880, 100, 50}))
-//     {
-//         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-//         {
-//             cout << "Simulation stopped" << endl;
-//             isSimulationRunning = false;
-//         }
-//     }
-// }
 
 void clearGridButton()
 {
@@ -60,15 +36,3 @@ void clearGridButton()
         }
     }
 }
-
-// void customButton()
-// {
-//     if (CheckCollisionPointRec(GetMousePosition(), {350, 820, 100, 50}))
-//     {
-//         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-//         {
-//             isCustomMode = true;
-//             cout << "Custom button clicked" << endl;
-//         }
-//     }
-// }
