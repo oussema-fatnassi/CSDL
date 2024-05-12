@@ -9,15 +9,11 @@
 #include <iostream>
 #define FILTER_BILINEAR 2
 
-
 Font font;
-Image icon;
 
-void InitializeResources() {
+void loadFont() {
     font = LoadFontEx("assets/fonts/AmericanTypewriterRegular.ttf", 64, 0, 0);
     SetTextureFilter(font.texture, 2);
-    icon = LoadImage("assets/images/icon.png");
-    
 }
 
 bool isSimulationRunning = false;
@@ -27,13 +23,9 @@ int main() {
     const int screenWidth = 800;
     const int screenHeight = 1000;
     
-    // Image icon = LoadImage("assets/images/icon.png");
-    // SetWindowIcon(icon);
-    // UnloadImage(icon);
-
     InitWindow(screenWidth, screenHeight, "Game of Life");
-    InitializeResources();
-    SetWindowIcon(icon);
+    loadFont();
+    loadImages();
     SetTargetFPS(5);
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -45,6 +37,9 @@ int main() {
             break;
         case INTRODUCTION:
             drawIntroduction();
+            break;
+        case RULES:
+            drawRules();
             break;
         case CREDITS:
             drawCredits();
@@ -70,8 +65,7 @@ int main() {
         EndDrawing();
     }
     UnloadFont(font);
-    UnloadImage(icon);
-
+    unloadImages();
     CloseWindow();
     return 0;
 }

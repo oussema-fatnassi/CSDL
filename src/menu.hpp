@@ -11,5 +11,8 @@ void drawCustomMode();
 void drawRandomMode();
 void drawDefaultMode();
 void initFPSValues();
+void loadImages();
+void unloadImages();
+void drawRules();
 
 #endif  
