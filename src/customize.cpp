@@ -2,12 +2,12 @@
 #include <raylib.h>
 #include "globals.hpp"
 
-int Clamp(int value, int min, int max)
+int Clamp(int value, int min, int max)                                                      // Clamp function to limit the value between the specified minimum and maximum values
 {
     return (value < min) ? min : (value > max) ? max : value;
 }
 
-void drawFPSSlider()
+void drawFPSSlider()                                                                        // Draw the FPS slider to control the simulation speed
 {
     float sliderWidth = 200;
     float sliderHeight = 20;
