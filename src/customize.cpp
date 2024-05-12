@@ -39,11 +39,11 @@ void drawZoomSlider()
     {
         int mouseX = GetMouseX();
         zoomLevel = (mouseX - sliderX) / (sliderWidth / 10); 
-        zoomLevel = Clamp(zoomLevel, 1.0f, 5.0f); 
+        zoomLevel = Clamp(zoomLevel, 1, 5); 
     }
 
     DrawRectangle(sliderX, sliderY, sliderWidth, sliderHeight, WHITE);
-    DrawRectangle(sliderX + (zoomLevel * (sliderWidth / 10)), sliderY, 10, sliderHeight, BLACK);
+    DrawRectangle(sliderX + (zoomLevel * (sliderWidth / 5)), sliderY, 10, sliderHeight, BLACK);
 
-    DrawText(TextFormat("Zoom: %f", zoomLevel), sliderX + sliderWidth + 10, sliderY, 20, BLACK);
+    DrawText(TextFormat("Zoom: %d", zoomLevel), sliderX + sliderWidth + 10, sliderY, 20, BLACK);
 }

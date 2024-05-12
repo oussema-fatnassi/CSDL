@@ -14,16 +14,17 @@ int fpsValues[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60,};
 
-float zoomLevel = 1.0f;
-
+int zoomLevel = 1;
 
 void drawMainMenu()
 {
     ClearBackground(GRAY);
-    DrawText("Game of Life", 350, 100, 50, BLACK);
-    createButton(300, 300, 200, 50, "Introduction");
-    createButton(300, 400, 200, 50, "Credits");
-    createButton(300, 500, 200, 50, "Exit");
+    int textWidth = MeasureTextEx(font,"Game of Life", 90,0).x;
+    float xPos = (GetScreenWidth() - textWidth) / 2;
+    DrawTextEx(font, "Game of Life", { xPos, 100 }, 90, 0, BLACK);
+    createButton(300, 300, 200, 50, "Introduction", font);
+    createButton(300, 400, 200, 50, "Credits", font);
+    createButton(300, 500, 200, 50, "Exit",font);
 }
 
 void drawIntroduction()
@@ -33,8 +34,8 @@ void drawIntroduction()
     DrawText("The Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970.", 50, 200, 15, WHITE);
     DrawText("The game is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.", 50, 250, 15, WHITE);
     DrawText("One interacts with the Game of Life by creating an initial configuration and observing how it evolves.", 50, 300, 15, WHITE);
-    createButton(300, 600, 200, 50, "Skip");
-    createButton(300, 700, 200, 50, "Back");
+    createButton(300, 600, 200, 50, "Skip", font);
+    createButton(300, 700, 200, 50, "Back", font);
 }
 
 void drawCredits()
@@ -45,17 +46,17 @@ void drawCredits()
     DrawText("Baptiste APPRIOU", 50, 250, 20, BLACK);
     DrawText("Ali Abakar ISSA", 50, 300, 20, BLACK);
     DrawText("Oussema FATNASSI", 50, 350, 20, BLACK);
-    createButton(300, 600, 200, 50, "Back");
+    createButton(300, 600, 200, 50, "Back", font);
 }
 
 void drawCustomMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation");
-    createButton(250, 880, 100, 50, "Stop");
-    createButton(370, 880, 130, 50, "Clear Grid");
-    createButton(520, 880, 100, 50, "Quit");
+    createButton(50, 880, 180, 50, "Start Simulation", font);
+    createButton(250, 880, 100, 50, "Stop", font);
+    createButton(370, 880, 130, 50, "Clear Grid", font);
+    createButton(520, 880, 100, 50, "Quit", font);
     drawFPSSlider();
     drawZoomSlider();
 }
@@ -64,11 +65,11 @@ void drawRandomMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 100, 50, "Reroll");
-    createButton(170, 880, 180, 50, "Start Simulation");
-    createButton(370, 880, 100, 50, "Stop");
-    createButton(490, 880, 130, 50, "Clear Grid");
-    createButton(650, 880, 100, 50, "Quit");
+    createButton(50, 880, 100, 50, "Reroll", font);
+    createButton(170, 880, 180, 50, "Start Simulation", font);
+    createButton(370, 880, 100, 50, "Stop", font);
+    createButton(490, 880, 130, 50, "Clear Grid", font);
+    createButton(650, 880, 100, 50, "Quit", font);
     drawFPSSlider();
 }
 
@@ -76,19 +77,19 @@ void drawDefaultMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation");
-    createButton(250, 880, 100, 50, "Stop");
-    createButton(370, 880, 130, 50, "Clear Grid");
-    createButton(520, 880, 100, 50, "Quit");
+    createButton(50, 880, 180, 50, "Start Simulation", font);
+    createButton(250, 880, 100, 50, "Stop", font);
+    createButton(370, 880, 130, 50, "Clear Grid", font);
+    createButton(520, 880, 100, 50, "Quit", font);
     drawFPSSlider();
 
 }
 void drawModeMenu()
 {
-    createButton(350, 200, 100, 50, "Random");
-    createButton(350, 300, 100, 50, "Default");
-    createButton(350, 400, 100, 50, "Custom");
-    createButton(350, 550, 100, 50, "Back");
+    createButton(350, 200, 100, 50, "Random", font);
+    createButton(350, 300, 100, 50, "Default", font);
+    createButton(350, 400, 100, 50, "Custom", font);
+    createButton(350, 550, 100, 50, "Back", font);
 }
 
 void menuInput()
@@ -253,6 +254,8 @@ void modeInput()
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
+                isSimulationRunning = false;
+                clearGridButton();
                 randomSpawn(800, 600, 20);
             }
         }
