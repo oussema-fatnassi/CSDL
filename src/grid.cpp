@@ -2,13 +2,14 @@
 #include <fstream>
 #include "globals.hpp"
 #include "menu.hpp"
+#include <iostream>
 using namespace std;
 bool gridCells[40][40] = {{false}};
 int generationCount = 0;
 
 void saveGridToFile()
 {
-    std::ofstream file("matrix.txt");
+    std::ofstream file("assets/matrices/save.txt");
 
     if (file.is_open())
     {
@@ -147,19 +148,21 @@ void customGridSpawn() {
     } 
 }
 
-void loadGridFromFile()
-{
-    ifstream file("matrix.txt");
-
-    if (file.is_open())
-    {
-        for (int i = 0; i < 40; i++)
-        {
-            for (int j = 0; j < 40; j++)
-            {
-                file >> gridCells[i][j];
-            }
-        }
-        file.close();
+void loadGridFromFile(const char* filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open file " << filename << std::endl;
+        return;
     }
+
+    int row = 0;
+    int col = 0;
+    while (file >> gridCells[row][col]) {
+        col++;
+        if (col >= 40) {
+            col = 0;
+            row++;
+        }
+    }
+    file.close();
 }

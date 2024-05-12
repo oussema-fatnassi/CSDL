@@ -380,7 +380,8 @@ void modeInput()
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 drawDefaultMode();
-                loadGridFromFile();
+                loadGridFromFile("assets/matrices/default.txt");
+
                 currentMenu = DEFAULT_MODE;
             }
         }
@@ -449,6 +450,7 @@ void modeInput()
     }
     else if (currentMenu == RANDOM_MODE)
     {
+
         if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 100, 50}))    //Reroll button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -509,6 +511,7 @@ void modeInput()
     }
     else if (currentMenu == DEFAULT_MODE)
         {
+
             if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))

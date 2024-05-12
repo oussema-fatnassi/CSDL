@@ -26,7 +26,7 @@ int main() {
     InitWindow(screenWidth, screenHeight, "Game of Life");
     loadFont();
     loadImages();
-    SetTargetFPS(5);
+    SetTargetFPS(15);
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(GRAY);
