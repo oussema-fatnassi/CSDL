@@ -23,7 +23,9 @@ Texture2D gameOfLifeExampleTexture;
 Texture2D gliderTexture;
 Texture2D blinkerTexture;
 Texture2D toadTexture;
-Texture2D blockTexture; 
+Texture2D blockTexture;
+Texture2D backgroundTexture; 
+Texture2D background1Texture; 
 
 Image conway;
 Image loneliness;
@@ -35,7 +37,8 @@ Image glider;
 Image blinker;
 Image toad;
 Image block;
-
+Image background;
+Image background1;
 
 int zoomLevel = 1;
 
@@ -71,6 +74,12 @@ void loadImages()
     block = LoadImage("assets/images/block.png");
     ImageResize(&block, 70, 70);
     blockTexture = LoadTextureFromImage(block);
+    background = LoadImage("assets/images/background.png");
+    ImageRotate(&background, 90);
+    backgroundTexture = LoadTextureFromImage(background);
+    background1 = LoadImage("assets/images/background1.png");
+    ImageRotate(&background1, 90);
+    background1Texture = LoadTextureFromImage(background1);
 }
 
 void unloadImages()
@@ -95,11 +104,13 @@ void unloadImages()
     UnloadImage(toad);
     UnloadTexture(blockTexture);
     UnloadImage(block);
+    UnloadTexture(backgroundTexture);
+    UnloadImage(background);
 }
 
 void drawMainMenu()
 {
-    ClearBackground(GRAY);
+    DrawTexture(background1Texture, 0, 0, WHITE);
     int textWidth = MeasureTextEx(font,"Game of Life", 90,0).x;
     float xPos = (GetScreenWidth() - textWidth) / 2;
     DrawTextEx(font, "Game of Life", { xPos, 100 }, 90, 0, BLACK);
@@ -111,8 +122,9 @@ void drawMainMenu()
 void drawIntroduction()
 {
     ClearBackground(GRAY);
-    DrawTexture(conwayTexture,20, 300, WHITE);
-    DrawTexture(gameOfLifeExampleTexture, 385, 350, WHITE);
+    DrawTexture(backgroundTexture, 0, 0, WHITE);
+    DrawTexture(conwayTexture,20, 250, WHITE);
+    DrawTexture(gameOfLifeExampleTexture, 380, 290, WHITE);
     int introductionTextWidth = MeasureTextEx(font,"Introduction", 50,0).x;
     float xPos = (GetScreenWidth() - introductionTextWidth) / 2;
     int firstLineTextWidth = MeasureTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", 20, 0).x;
@@ -122,123 +134,139 @@ void drawIntroduction()
     int thirdLineTextWidth = MeasureTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", 20, 0).x;
     float thirdLineXPos = (GetScreenWidth() - thirdLineTextWidth) / 2;
 
-    DrawTextEx(font,"Introduction", {xPos, 20}, 50, 0, BLACK);
-    DrawTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", {firstLineXPos, 200}, 20, 0, WHITE);
-    DrawTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", {secondLineXPos, 230}, 20, 0, WHITE);
-    DrawTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", {thirdLineXPos, 260}, 20, 0, WHITE);
-    createButton(300, 700, 200, 50, "Skip", font, 200, 50);
-    createButton(300, 760, 200, 50, "Back", font, 200, 50);
-    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
+    DrawTextEx(font,"Introduction", {xPos, 20}, 50, 0, WHITE);
+    DrawTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", {firstLineXPos, 100}, 20, 0, WHITE);
+    DrawTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", {secondLineXPos, 130}, 20, 0, WHITE);
+    DrawTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", {thirdLineXPos, 160}, 20, 0, WHITE);
+    DrawTextEx(font, "John Conway", {20, 580}, 20, 0, WHITE);
+    DrawTextEx(font, "Game of Life Example", {380, 580}, 20, 0, WHITE);
+    createButton(300, 700, 200, 50, "Continue", font, 200, 50);
+    createButton(300, 760, 200, 50, "Skip", font, 200, 50);
+    createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
 
 void drawCellTypes()
 {
     ClearBackground(WHITE);
+    DrawTexture(backgroundTexture, 0, 0, WHITE);
     int cellTypesTextWidth = MeasureTextEx(font, "Cell Types", 50, 0).x;
     float cellTypesXPos = (GetScreenWidth() - cellTypesTextWidth) / 2;
-    DrawTextEx(font, "Cell Types", {cellTypesXPos, 20}, 50, 0, BLACK);
+    DrawTextEx(font, "Cell Types", {cellTypesXPos, 20}, 50, 0, WHITE);
     DrawTexture(blockTexture, 70, 140, WHITE);
     DrawTexture(blinkerTexture, 70, 270, WHITE);
     DrawTexture(toadTexture, 70, 400, WHITE);
     DrawTexture(gliderTexture, 70, 530, WHITE);
-    createButton(300, 760, 200, 50, "Back", font, 200, 50);
-    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
+    createButton(300, 760, 200, 50, "Continue", font, 200, 50);
+    createButton(300, 820, 200, 50, "Back", font, 200, 50);
 
-    DrawTextEx(font, "BLOCK:", {20, 90}, 20, 0, BLACK);
-    DrawTextEx(font, "A still life pattern that does not change from one generation to the next", {20, 110}, 20, 0, BLACK);
-    DrawTextEx(font, "BLINKER:", {20, 220}, 20, 0, BLACK);
-    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 240}, 20, 0, BLACK);
-    DrawTextEx(font, "TOAD:", {20, 350}, 20, 0, BLACK);
-    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 370}, 20, 0, BLACK);
-    DrawTextEx(font, "GLIDER:", {20, 480}, 20, 0, BLACK);
-    DrawTextEx(font, "A spaceship that moves diagonally across the grid", {20, 500}, 20, 0, BLACK);
-    DrawTextEx(font, "OSCILLATOR CELLS:", {20, 650}, 20, 0, BLACK);
-    DrawTextEx(font, "These cells form patterns that alternate between two or more states, like blinkers and toads", {20, 670}, 20, 0, BLACK);
-    DrawTextEx(font, "SPACESHIP CELLS:", {20, 720}, 20, 0, BLACK);
-    DrawTextEx(font, "These cells move across the grid, like gliders", {20, 740}, 20, 0, BLACK);
+    DrawTextEx(font, "BLOCK:", {20, 90}, 20, 0, WHITE);
+    DrawTextEx(font, "A still life pattern that does not change from one generation to the next", {20, 110}, 20, 0, WHITE);
+    DrawTextEx(font, "BLINKER:", {20, 220}, 20, 0, WHITE);
+    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 240}, 20, 0, WHITE);
+    DrawTextEx(font, "TOAD:", {20, 350}, 20, 0, WHITE);
+    DrawTextEx(font, "A period 2 oscillator that alternates between two states every generation", {20, 370}, 20, 0, WHITE);
+    DrawTextEx(font, "GLIDER:", {20, 480}, 20, 0, WHITE);
+    DrawTextEx(font, "A spaceship that moves diagonally across the grid", {20, 500}, 20, 0, WHITE);
+    DrawTextEx(font, "OSCILLATOR CELLS:", {20, 650}, 20, 0, WHITE);
+    DrawTextEx(font, "These cells form patterns that alternate between two or more states, like blinkers and toads", {20, 670}, 20, 0, WHITE);
+    DrawTextEx(font, "SPACESHIP CELLS:", {20, 690}, 20, 0, WHITE);
+    DrawTextEx(font, "These cells move across the grid, like gliders", {20, 710}, 20, 0, WHITE);
 }
 
 void drawRules()
 {   
+    ClearBackground(WHITE);
+    DrawTexture(backgroundTexture, 0, 0, WHITE);
     int rulesTextWidth = MeasureTextEx(font, "Rules", 50, 0).x;
     float rulesXPos = (GetScreenWidth() - rulesTextWidth) / 2;
-    DrawTextEx(font, "Rules", {rulesXPos, 20}, 50, 0, BLACK);
-    DrawTextEx(font, "LONELINESS:", {280, 140}, 20, 0, BLACK);
-    DrawTextEx(font, "A cell with less than 2 adjoining cells dies", {280, 160}, 20, 0, BLACK);
-    DrawTextEx(font, "OVERCROWDING:", {280, 270}, 20, 0, BLACK);
-    DrawTextEx(font, "A cell with more than 3 adjoining cells dies", {280, 290}, 20, 0, BLACK);
-    DrawTextEx(font, "REPRODUCTION:", {280, 400}, 20, 0, BLACK);
-    DrawTextEx(font, "An empty cell with 3 adjoining cells becomes alive", {280, 420}, 20, 0, BLACK);
-    DrawTextEx(font, "STASIS:", {280, 530}, 20, 0, BLACK);
-    DrawTextEx(font, "A cell with exactly 2 adjoining cells survives", {280, 550}, 20, 0, BLACK);
-    ClearBackground(WHITE);
+    DrawTextEx(font, "Rules", {rulesXPos, 20}, 50, 0, WHITE);
+    DrawTextEx(font, "LONELINESS:", {280, 140}, 20, 0, WHITE);
+    DrawTextEx(font, "A cell with less than 2 adjoining cells dies", {280, 160}, 20, 0, WHITE);
+    DrawTextEx(font, "OVERCROWDING:", {280, 270}, 20, 0, WHITE);
+    DrawTextEx(font, "A cell with more than 3 adjoining cells dies", {280, 290}, 20, 0, WHITE);
+    DrawTextEx(font, "REPRODUCTION:", {280, 400}, 20, 0, WHITE);
+    DrawTextEx(font, "An empty cell with 3 adjoining cells becomes alive", {280, 420}, 20, 0, WHITE);
+    DrawTextEx(font, "STASIS:", {280, 530}, 20, 0, WHITE);
+    DrawTextEx(font, "A cell with exactly 2 adjoining cells survives", {280, 550}, 20, 0, WHITE);
+
     DrawTexture(lonelinessTexture, 70, 120, WHITE);
     DrawTexture(overcrowdingTexture, 70, 250, WHITE);
     DrawTexture(reproductionTexture, 70, 380, WHITE);
     DrawTexture(stasisTexture, 70, 510, WHITE);
-    createButton(300, 700, 200, 50, "Skip", font, 200, 50);
-    createButton(300, 760, 200, 50, "Back", font, 200, 50);
-    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
+    createButton(300, 700, 200, 50, "Continue", font, 200, 50);
+    createButton(300, 760, 200, 50, "Skip", font, 200, 50);
+    createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
-
 
 void drawCredits()
 {
     ClearBackground(GRAY);
-    DrawText("Credits", 350, 100, 50, BLACK);
-    DrawText("This game was created by the following people:", 50, 200, 20, WHITE);
-    DrawText("Baptiste APPRIOU", 50, 250, 20, BLACK);
-    DrawText("Ali Abakar ISSA", 50, 300, 20, BLACK);
-    DrawText("Oussema FATNASSI", 50, 350, 20, BLACK);
+    DrawTexture(background1Texture, 0, 0, WHITE);
+    int creditsTextWidth = MeasureTextEx(font, "Credits", 50, 0).x;
+    float creditsXPos = (GetScreenWidth() - creditsTextWidth) / 2;
+    DrawTextEx(font, "Credits", {creditsXPos, 100}, 50, 0, BLACK);
+    DrawTextEx(font, "This game was created by:", {50, 200}, 20,0, BLACK);
+    DrawTextEx(font, "Baptiste APPRIOU", {50, 300}, 20, 0, BLACK);
+    DrawTextEx(font, "Ali Abakar ISSA", {50, 350}, 20, 0, BLACK);
+    DrawTextEx(font, "Oussema FATNASSI", {50, 400}, 20, 0, BLACK);
     createButton(300, 600, 200, 50, "Back", font, 200, 50);
 }
 
 void drawCustomMode()
 {
-    ClearBackground(GRAY);
+    ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation", font, 200, 50);
-    createButton(250, 880, 100, 50, "Stop", font, 100, 50);
-    createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
-    createButton(520, 880, 100, 50, "Quit", font, 100, 50);
-    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
-    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
+    createButton(115, 810, 180, 50, "Start Simulation", font, 200, 50);
+    createButton(315, 810, 100, 50, "Stop", font, 100, 50);
+    createButton(435, 810, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(585, 810, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {500, 930}, 20, 0, WHITE);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {620, 930}, 20, 0, WHITE); // Draw the generation count
     drawFPSSlider();
+    createButton(50, 880, 60, 30, "Glider", font, 60, 30);
+    createButton(120, 880, 170, 30, "Queen Been Shuttle", font, 170, 30);
+    createButton(300, 880, 100, 30, "Glider Gun", font, 100, 30);
+    createButton(410, 880, 140, 30, "Pentadecathlon", font, 140, 30);
+    createButton(560, 880, 170, 30, "Simkin Glider Gun", font, 170, 30);   
     // drawZoomSlider();
 }
 
 void drawRandomMode()
 {
-    ClearBackground(GRAY);
+    ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
-    createButton(50, 880, 100, 50, "Reroll", font, 100, 50);
-    createButton(170, 880, 180, 50, "Start Simulation", font, 200, 50);
-    createButton(370, 880, 100, 50, "Stop", font, 100, 50);
-    createButton(490, 880, 130, 50, "Clear Grid", font, 130, 50);
-    createButton(650, 880, 100, 50, "Quit", font, 100, 50);
-    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
-    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
+    createButton(50, 820, 100, 50, "Reroll", font, 100, 50);
+    createButton(170, 820, 180, 50, "Start Simulation", font, 200, 50);
+    createButton(370, 820, 100, 50, "Stop", font, 100, 50);
+    createButton(490, 820, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(650, 820, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {500, 930}, 20, 0, WHITE);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {620, 930}, 20, 0, WHITE); // Draw the generation count
     drawFPSSlider();
 }
 
 void drawDefaultMode()
 {
-    ClearBackground(GRAY);
+    ClearBackground(backgroundColor);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation", font, 200, 50);
-    createButton(250, 880, 100, 50, "Stop", font, 100, 50);
-    createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
-    createButton(520, 880, 100, 50, "Quit", font, 100, 50);
-    DrawTextEx(font, "Generation: ", {400, 950}, 20, 0, BLACK);
-    DrawTextEx(font, std::to_string(generationCount).c_str(), {520, 950}, 20, 0, BLACK); // Draw the generation count
+    createButton(120, 820, 180, 50, "Start Simulation", font, 180, 50);
+    createButton(320, 820, 100, 50, "Stop", font, 100, 50);
+    createButton(440, 820, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(590, 820, 100, 50, "Quit", font, 100, 50);
+    DrawTextEx(font, "Generation: ", {500, 930}, 20, 0, WHITE);
+    DrawTextEx(font, std::to_string(generationCount).c_str(), {620, 930}, 20, 0, WHITE); // Draw the generation count
     drawFPSSlider();
 }
 void drawModeMenu()
 {
-    createButton(350, 200, 100, 50, "Random", font, 100, 50);
-    createButton(350, 300, 100, 50, "Default", font, 100, 50);
-    createButton(350, 400, 100, 50, "Custom", font, 100, 50);
-    createButton(350, 550, 100, 50, "Back", font, 100, 50);
+    DrawTexture(background1Texture, 0, 0, WHITE);
+    int modeTextWidth = MeasureTextEx(font, "CHOOSE A MODE", 50, 0).x;
+    float modexPos = (GetScreenWidth() - modeTextWidth) / 2;
+    DrawTextEx(font, "CHOOSE A MODE", {modexPos, 100}, 50, 0, BLACK);
+    createButton(300, 200, 200, 50, "Random", font, 200, 50);
+    createButton(300, 300, 200, 50, "Default", font, 200, 50);
+    createButton(300, 400, 200, 50, "Custom", font, 200, 50);
+    createButton(300, 820, 200, 50, "Back", font, 200, 50);
 }
 
 void menuInput()
@@ -277,21 +305,21 @@ void menuInput()
     }
     else if (currentMenu == INTRODUCTION)
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))    //skip button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //skip button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MAIN_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // continue button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   // continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -302,21 +330,21 @@ void menuInput()
     }
     else if (currentMenu == RULES)
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))    //skip button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //skip button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = INTRODUCTION;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // continue button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 700, 200, 50}))   // continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -327,14 +355,14 @@ void menuInput()
     }
     else if (currentMenu == CELL_TYPES)
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))    //continue button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))    //continue button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 currentMenu = MODE_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {300, 760, 200, 50}))   // back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))   // back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -359,7 +387,7 @@ void modeInput()
 {
     if (currentMenu == MODE_MENU)
     {
-        if (CheckCollisionPointRec(GetMousePosition(), {350, 400, 100, 50}))    //Custom mode button
+        if (CheckCollisionPointRec(GetMousePosition(), {300, 400, 200, 50}))    //Custom mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -367,7 +395,7 @@ void modeInput()
                 currentMenu = CUSTOM_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {350, 200, 100, 50}))    //Random mode button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 200, 200, 50}))    //Random mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -375,17 +403,16 @@ void modeInput()
                 currentMenu = RANDOM_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {350, 300, 100, 50}))    //Default mode button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 300, 200, 50}))    //Default mode button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 drawDefaultMode();
                 loadGridFromFile("assets/matrices/default.txt");
-
                 currentMenu = DEFAULT_MODE;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {350, 550, 100, 50}))       //Back button
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 820, 200, 50}))       //Back button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -397,7 +424,7 @@ void modeInput()
     else if (currentMenu == CUSTOM_MODE) {
         customGridSpawn();
 
-        if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {115, 810, 180, 50}))
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -409,14 +436,14 @@ void modeInput()
             applyConwayRules();
         }
         
-        if (CheckCollisionPointRec(GetMousePosition(), {250, 880, 100, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {315, 810, 100, 50}))
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = false;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))       //Clear grid button
+        else if (CheckCollisionPointRec(GetMousePosition(), {435, 810, 130, 50}))       //Clear grid button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -424,34 +451,80 @@ void modeInput()
                 clearGridButton();
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {520, 880, 100, 50}))       //Quit button
+        else if (CheckCollisionPointRec(GetMousePosition(), {585, 810, 100, 50}))       //Quit button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                SetTargetFPS(15);
                 clearGridButton();
                 isSimulationRunning = false;
                 drawMainMenu();
                 currentMenu = MAIN_MENU;
             }
         }
-        if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+        else if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 60, 30}))       //Glider
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                isSimulationRunning = false;
+                clearGridButton();
+                loadGridFromFile("assets/matrices/glider.txt");
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {120, 880, 170, 30}))       //Queen Bee Shuttle
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                isSimulationRunning = false;
+                clearGridButton();
+                loadGridFromFile("assets/matrices/queen_bee_shuttle.txt");
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {300, 880, 100, 30}))       //Glider Gun
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                isSimulationRunning = false;
+                clearGridButton();
+                loadGridFromFile("assets/matrices/glider_gun.txt");
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {410, 880, 140, 30}))       //Pentadecathlon
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                isSimulationRunning = false;
+                clearGridButton();
+                loadGridFromFile("assets/matrices/pentadecathlon.txt");
+            }
+        }
+        else if (CheckCollisionPointRec(GetMousePosition(), {560, 880, 170, 30}))       //Simkin Glider Gun
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {   
+                isSimulationRunning = false;
+                clearGridButton();
+                loadGridFromFile("assets/matrices/simkin_glider_gun.txt");
+            }
+        }
+        if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 int mouseX = GetMouseX();
 
-                int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
+                int fpsIndex = Clamp((mouseX - 170) / (200 / 60), 0, 59);
                 int newFPS = fpsValues[fpsIndex];
                 SetTargetFPS(newFPS);
             }
-
         }
+
         
     }
     else if (currentMenu == RANDOM_MODE)
     {
 
-        if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 100, 50}))    //Reroll button
+        if (CheckCollisionPointRec(GetMousePosition(), {50, 820, 100, 50}))    //Reroll button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -460,7 +533,7 @@ void modeInput()
                 randomSpawn(800, 600, 20);
             }
         }
-        if (CheckCollisionPointRec(GetMousePosition(), {170, 880, 180, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {170, 820, 180, 50}))    // Start simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
@@ -472,14 +545,14 @@ void modeInput()
             applyConwayRules();
         }
         
-        if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))
+        if (CheckCollisionPointRec(GetMousePosition(), {370, 820, 130, 50}))    // Stop simulation button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 isSimulationRunning = false;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {520, 880, 100, 50}))       //Clear grid button
+        else if (CheckCollisionPointRec(GetMousePosition(), {520, 820, 100, 50}))       //Clear grid button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
@@ -487,23 +560,24 @@ void modeInput()
                 clearGridButton();
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {650, 880, 100, 50}))       //Quit button
+        else if (CheckCollisionPointRec(GetMousePosition(), {650, 820, 100, 50}))       //Quit button
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {   
+                SetTargetFPS(15);
                 isSimulationRunning = false;
                 clearGridButton();
                 drawMainMenu();
                 currentMenu = MAIN_MENU;
             }
         }
-        else if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+        else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
         {
             if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             {
                 int mouseX = GetMouseX();
 
-                int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
+                int fpsIndex = Clamp((mouseX - 170) / (200 / 60), 0, 59);
                 int newFPS = fpsValues[fpsIndex];
                 SetTargetFPS(newFPS);
             }
@@ -512,7 +586,7 @@ void modeInput()
     else if (currentMenu == DEFAULT_MODE)
         {
 
-            if (CheckCollisionPointRec(GetMousePosition(), {50, 880, 180, 50}))
+            if (CheckCollisionPointRec(GetMousePosition(), {120, 820, 180, 50}))
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
@@ -524,38 +598,40 @@ void modeInput()
                 applyConwayRules();
             }
             
-            if (CheckCollisionPointRec(GetMousePosition(), {250, 880, 100, 50}))
+            if (CheckCollisionPointRec(GetMousePosition(), {320, 820, 100, 50}))
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
                     isSimulationRunning = false;
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {370, 880, 130, 50}))       //Clear grid button
+            else if (CheckCollisionPointRec(GetMousePosition(), {440, 820, 130, 50}))       //Clear grid button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
                     isSimulationRunning = false;
                     clearGridButton();
+                    loadGridFromFile("assets/matrices/default.txt");
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {520, 880, 100, 50}))       //Quit button
+            else if (CheckCollisionPointRec(GetMousePosition(), {590, 820, 100, 50}))       //Quit button
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {   
+                    SetTargetFPS(15);
                     isSimulationRunning = false;
                     clearGridButton();
                     drawMainMenu();
                     currentMenu = MAIN_MENU;
                 }
             }
-            else if (CheckCollisionPointRec(GetMousePosition(), {70, 950, 200, 20})) // FPS slider
+            else if (CheckCollisionPointRec(GetMousePosition(), {170, 930, 200, 20})) // FPS slider
             {
                 if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
                 {
                     int mouseX = GetMouseX();
 
-                    int fpsIndex = Clamp((mouseX - 70) / (200 / 60), 0, 59);
+                    int fpsIndex = Clamp((mouseX - 170) / (200 / 60), 0, 59);
                     int newFPS = fpsValues[fpsIndex];
                     SetTargetFPS(newFPS);
                 }

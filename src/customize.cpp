@@ -11,9 +11,9 @@ void drawFPSSlider()
 {
     float sliderWidth = 200;
     float sliderHeight = 20;
-    float sliderX = 70;
-    float sliderY = 950;
-    static int fpsIndex = 0; 
+    float sliderX = 170;
+    float sliderY = 930;
+    static int fpsIndex = 14; 
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), {sliderX, sliderY, sliderWidth, sliderHeight}))
     {
@@ -23,9 +23,9 @@ void drawFPSSlider()
     }
 
     DrawRectangle(sliderX, sliderY, sliderWidth, sliderHeight, WHITE);
-    DrawRectangle(sliderX + (fpsIndex * (sliderWidth / 60)), sliderY, 10, sliderHeight, BLACK);
+    DrawRectangle(sliderX + (fpsIndex * (sliderWidth / 60)), sliderY, 10, sliderHeight, LIGHTGRAY);
 
-    DrawTextEx(font,TextFormat("FPS: %d", fpsValues[fpsIndex]), {sliderX + sliderWidth + 10, sliderY}, 20, 0, BLACK);
+    DrawTextEx(font,TextFormat("FPS: %d", fpsValues[fpsIndex]), {sliderX + sliderWidth + 10, sliderY}, 20, 0, WHITE);
 }
 
 void drawZoomSlider()

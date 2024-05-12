@@ -18,6 +18,7 @@ void loadFont() {
 
 bool isSimulationRunning = false;
 Menu currentMenu = MAIN_MENU;
+Color backgroundColor = {0,28,48,120};
 
 int main() {
     const int screenWidth = 800;
@@ -29,7 +30,6 @@ int main() {
     SetTargetFPS(15);
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(GRAY);
 
         switch (currentMenu) {
         case MAIN_MENU:

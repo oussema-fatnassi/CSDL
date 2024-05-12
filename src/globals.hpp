@@ -23,5 +23,7 @@ extern int zoomLevel;
 
 extern Font font;
 extern int generationCount;
+extern Color backgroundColor;
+
 
 #endif // GLOBALS_HPP
