@@ -6,6 +6,7 @@ enum Menu
     MAIN_MENU,
     INTRODUCTION,
     RULES,
+    CELL_TYPES,
     CREDITS,
     CUSTOM_MODE,
     RANDOM_MODE,
