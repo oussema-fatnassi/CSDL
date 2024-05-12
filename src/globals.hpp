@@ -1,7 +1,7 @@
 #ifndef GLOBALS_HPP
 #define GLOBALS_HPP
 
-enum Menu
+enum Menu                                                       // Enum for Menu state
 {
     MAIN_MENU,
     INTRODUCTION,
@@ -14,16 +14,15 @@ enum Menu
     MODE_MENU
 };
 
-extern bool isSimulationRunning;
-extern bool gridCells[40][40];
-extern Menu currentMenu;
+extern bool isSimulationRunning;                                // Declaration of Simulation state, to start it and stop it
+extern bool gridCells[40][40];                                  // Declaration of grid cells dimensions
+extern Menu currentMenu;                                        // Declaration of Menu state    
 
-extern int fpsValues[];
-extern int zoomLevel;
+extern int fpsValues[];                                         // Declaration of FPS values
+extern int zoomLevel;                                           // Declaration of Zoom level
 
-extern Font font;
-extern int generationCount;
-extern Color backgroundColor;
-
+extern Font font;                                               // Declaration of Font
+extern int generationCount;                                     // Declaration of Generation count
+extern Color backgroundColor;                                   // Declaration of Background color
 
 #endif // GLOBALS_HPP
