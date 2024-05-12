@@ -7,6 +7,6 @@ int countLiveNeighbors(int i, int j);
 void applyConwayRules();
 void customGridSpawn();
 void saveGridToFile();
-void loadGridFromFile();
+void loadGridFromFile(const char *filename);
 
 #endif  
