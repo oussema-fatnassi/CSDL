@@ -103,9 +103,9 @@ void drawMainMenu()
     int textWidth = MeasureTextEx(font,"Game of Life", 90,0).x;
     float xPos = (GetScreenWidth() - textWidth) / 2;
     DrawTextEx(font, "Game of Life", { xPos, 100 }, 90, 0, BLACK);
-    createButton(300, 300, 200, 50, "Introduction", font);
-    createButton(300, 400, 200, 50, "Credits", font);
-    createButton(300, 500, 200, 50, "Exit",font);
+    createButton(300, 300, 200, 50, "Introduction", font, 200, 50);
+    createButton(300, 400, 200, 50, "Credits", font, 200, 50);
+    createButton(300, 500, 200, 50, "Exit",font, 200, 50);
 }
 
 void drawIntroduction()
@@ -126,9 +126,9 @@ void drawIntroduction()
     DrawTextEx(font, "Conway's Game of Life is a fascinating example of a cellular automaton,", {firstLineXPos, 200}, 20, 0, WHITE);
     DrawTextEx(font, "devised by the British mathematician John Horton Conway in 1970.", {secondLineXPos, 230}, 20, 0, WHITE);
     DrawTextEx(font, "Despite its simplicity, this 'zero-player' game exhibits complex and unpredictable behavior.", {thirdLineXPos, 260}, 20, 0, WHITE);
-    createButton(300, 700, 200, 50, "Skip", font);
-    createButton(300, 760, 200, 50, "Back", font);
-    createButton(300, 820, 200, 50, "Continue", font);
+    createButton(300, 700, 200, 50, "Skip", font, 200, 50);
+    createButton(300, 760, 200, 50, "Back", font, 200, 50);
+    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
 }
 
 void drawCellTypes()
@@ -141,8 +141,8 @@ void drawCellTypes()
     DrawTexture(blinkerTexture, 70, 270, WHITE);
     DrawTexture(toadTexture, 70, 400, WHITE);
     DrawTexture(gliderTexture, 70, 530, WHITE);
-    createButton(300, 760, 200, 50, "Back", font);
-    createButton(300, 820, 200, 50, "Continue", font);
+    createButton(300, 760, 200, 50, "Back", font, 200, 50);
+    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
 
     DrawTextEx(font, "BLOCK:", {20, 90}, 20, 0, BLACK);
     DrawTextEx(font, "A still life pattern that does not change from one generation to the next", {20, 110}, 20, 0, BLACK);
@@ -176,9 +176,9 @@ void drawRules()
     DrawTexture(overcrowdingTexture, 70, 250, WHITE);
     DrawTexture(reproductionTexture, 70, 380, WHITE);
     DrawTexture(stasisTexture, 70, 510, WHITE);
-    createButton(300, 700, 200, 50, "Skip", font);
-    createButton(300, 760, 200, 50, "Back", font);
-    createButton(300, 820, 200, 50, "Continue", font);
+    createButton(300, 700, 200, 50, "Skip", font, 200, 50);
+    createButton(300, 760, 200, 50, "Back", font, 200, 50);
+    createButton(300, 820, 200, 50, "Continue", font, 200, 50);
 }
 
 
@@ -190,17 +190,17 @@ void drawCredits()
     DrawText("Baptiste APPRIOU", 50, 250, 20, BLACK);
     DrawText("Ali Abakar ISSA", 50, 300, 20, BLACK);
     DrawText("Oussema FATNASSI", 50, 350, 20, BLACK);
-    createButton(300, 600, 200, 50, "Back", font);
+    createButton(300, 600, 200, 50, "Back", font, 200, 50);
 }
 
 void drawCustomMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation", font);
-    createButton(250, 880, 100, 50, "Stop", font);
-    createButton(370, 880, 130, 50, "Clear Grid", font);
-    createButton(520, 880, 100, 50, "Quit", font);
+    createButton(50, 880, 180, 50, "Start Simulation", font, 200, 50);
+    createButton(250, 880, 100, 50, "Stop", font, 100, 50);
+    createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(520, 880, 100, 50, "Quit", font, 100, 50);
     drawFPSSlider();
     drawZoomSlider();
 }
@@ -209,11 +209,11 @@ void drawRandomMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 100, 50, "Reroll", font);
-    createButton(170, 880, 180, 50, "Start Simulation", font);
-    createButton(370, 880, 100, 50, "Stop", font);
-    createButton(490, 880, 130, 50, "Clear Grid", font);
-    createButton(650, 880, 100, 50, "Quit", font);
+    createButton(50, 880, 100, 50, "Reroll", font, 100, 50);
+    createButton(170, 880, 180, 50, "Start Simulation", font, 200, 50);
+    createButton(370, 880, 100, 50, "Stop", font, 100, 50);
+    createButton(490, 880, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(650, 880, 100, 50, "Quit", font, 100, 50);
     drawFPSSlider();
 }
 
@@ -221,19 +221,19 @@ void drawDefaultMode()
 {
     ClearBackground(GRAY);
     createGrid(800, 800, 20);
-    createButton(50, 880, 180, 50, "Start Simulation", font);
-    createButton(250, 880, 100, 50, "Stop", font);
-    createButton(370, 880, 130, 50, "Clear Grid", font);
-    createButton(520, 880, 100, 50, "Quit", font);
+    createButton(50, 880, 180, 50, "Start Simulation", font, 200, 50);
+    createButton(250, 880, 100, 50, "Stop", font, 100, 50);
+    createButton(370, 880, 130, 50, "Clear Grid", font, 130, 50);
+    createButton(520, 880, 100, 50, "Quit", font, 100, 50);
     drawFPSSlider();
 
 }
 void drawModeMenu()
 {
-    createButton(350, 200, 100, 50, "Random", font);
-    createButton(350, 300, 100, 50, "Default", font);
-    createButton(350, 400, 100, 50, "Custom", font);
-    createButton(350, 550, 100, 50, "Back", font);
+    createButton(350, 200, 100, 50, "Random", font, 100, 50);
+    createButton(350, 300, 100, 50, "Default", font, 100, 50);
+    createButton(350, 400, 100, 50, "Custom", font, 100, 50);
+    createButton(350, 550, 100, 50, "Back", font, 100, 50);
 }
 
 void menuInput()
