@@ -114,7 +114,7 @@ void drawMainMenu()                                                         // D
     int textWidth = MeasureTextEx(font,"Game of Life", 90,0).x;
     float xPos = (GetScreenWidth() - textWidth) / 2;
     DrawTextEx(font, "Game of Life", { xPos, 100 }, 90, 0, BLACK);
-    createButton(300, 300, 200, 50, "Introduction", font, 200, 50);
+    createButton(300, 300, 200, 50, "Start", font, 200, 50);
     createButton(300, 400, 200, 50, "Credits", font, 200, 50);
     createButton(300, 500, 200, 50, "Exit",font, 200, 50);
 }
