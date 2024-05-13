@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/oussema-fatnassi/CSDL/blob/main/assets/images/logo.png" alt="Game of life logo" width= "86.73" height="135"/>
+</p>
+
 # CSDL
 Game of Life in C++
 
