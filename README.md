@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/oussema-fatnassi/CSDL/blob/main/assets/images/logo.png" alt="Game of life logo" width= "135" height="135"/>
+  <img src="https://github.com/oussema-fatnassi/CSDL/blob/main/assets/images/logo.png" alt="Game of life logo" width= "187.6" height="144.4"/>
 </p>
 
 # CSDL
